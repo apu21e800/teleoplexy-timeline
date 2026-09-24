@@ -1,4 +1,4 @@
-/* Teleoplexy - Statement of projected status. Client-side only. */
+/* Teleoplexy — Statement of projected status. Client-side only. */
 var SUBSTACK_URL = 'SUBSTACK_URL';
 var ISSUE_YEAR = 2026;
 var R = window.TELEOPLEXY_RECEIPTS;
