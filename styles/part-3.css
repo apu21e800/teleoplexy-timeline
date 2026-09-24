@@ -1,0 +1,129 @@
+.ledger-table a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.tripwire { color: var(--muted); font-size: 0.75rem; }
+
+/* Fates */
+.fate-menu {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.fate-btn {
+  font-family: var(--form);
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  background: var(--field);
+  border: 1px solid var(--muted);
+  color: var(--ink);
+  cursor: pointer;
+}
+.fate-btn:hover, .fate-btn:focus {
+  border-color: var(--ink);
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.system-msg {
+  font-family: var(--reader);
+  font-size: 0.95rem;
+  color: var(--stamp);
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--wash);
+  border-bottom: 1px solid var(--wash);
+}
+
+.stream-wrap { margin-top: 1.25rem; }
+.stream-figure {
+  margin: 1rem 0;
+  background: var(--field);
+  border: 1px solid var(--wash);
+  padding: 0.5rem;
+}
+.stream-figure svg { width: 100%; height: auto; display: block; }
+.linkish {
+  background: none;
+  border: none;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0;
+}
+.linkish:focus { outline: 2px solid var(--focus); outline-offset: 2px; }
+.assumptions {
+  font-size: 0.8125rem;
+  color: var(--ink);
+  background: var(--wash);
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0 1rem;
+}
+.assumptions ul { margin: 0; padding-left: 1.1rem; }
+.reader-note {
+  font-family: var(--reader);
+  color: var(--stamp);
+  font-size: 0.95rem;
+}
+
+.placement {
+  border: 1px solid var(--wash);
+  padding: 1rem;
+  margin: 1.25rem 0 0.75rem;
+}
+.placement legend {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 0.35rem;
+}
+.check {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin: 0.55rem 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.check input {
+  margin-top: 0.2rem;
+  accent-color: var(--ink);
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+.placement-line {
+  font-family: var(--reader);
+  color: var(--stamp);
+  font-size: 0.9rem;
+  min-height: 1.4em;
+}
+.exposure {
+  font-size: 0.875rem;
+  color: var(--ink);
+  margin-top: 0.5rem;
+}
+
+/* Doors */
+.doors-list { display: grid; gap: 0.75rem; }
+.door {
+  border: 1px solid var(--wash);
+  background: var(--field);
+  padding: 0.85rem 1rem;
+}
+.door.open { border-color: var(--ink); }
+.door h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+}
+.door .meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0.15rem 0;
+}
+.door .elig { font-size: 0.8125rem; }

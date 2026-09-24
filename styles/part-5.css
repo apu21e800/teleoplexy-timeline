@@ -1,0 +1,13 @@
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .masthead, main { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .instrument { margin-left: -1.5rem; margin-right: -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+  .fate-menu { grid-template-columns: 1fr 1fr; }
+}

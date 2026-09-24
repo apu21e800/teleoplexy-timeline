@@ -1,0 +1,117 @@
+.btn-primary:hover, .btn-secondary:hover { opacity: 0.9; }
+.btn-primary:focus, .btn-secondary:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+.btn-secondary {
+  background: var(--field);
+  color: var(--ink);
+  margin-top: 0.5rem;
+}
+
+/* Hook result - stamp red reader fill */
+.hook-result { margin-top: 1.75rem; }
+.stamp-block {
+  font-family: var(--reader);
+  font-size: 1.05rem;
+  color: var(--stamp);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  min-height: 1.5em;
+}
+.stamp-block.flat { color: var(--ink); }
+.stamp-block .typed { white-space: pre-wrap; }
+
+.child-field {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--wash);
+}
+
+/* Instrument */
+.instrument {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  background: var(--paper);
+  border-bottom: 1px solid var(--muted);
+  padding: 0.6rem 1rem;
+  margin: 0 -1rem;
+  font-size: 0.75rem;
+}
+@media (min-width: 640px) {
+  .instrument { grid-template-columns: repeat(3, 1fr); }
+}
+.inst-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.inst-value { font-weight: 600; }
+.inst-value.reader {
+  font-family: var(--reader);
+  color: var(--stamp);
+}
+.inst-value.proj {
+  border-bottom: 1px dotted var(--muted);
+}
+
+/* Ledger */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.conf { margin-right: 0.15rem; }
+
+.ledger-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--wash);
+}
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  min-width: 36rem;
+}
+.ledger-table th {
+  text-align: left;
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--muted);
+  background: var(--wash);
+  position: sticky;
+  top: 0;
+}
+.ledger-table td {
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--wash);
+  vertical-align: top;
+}
+.ledger-table tbody tr:nth-child(even) { background: rgba(232, 226, 214, 0.35); }
+.ledger-table tr.here {
+  background: var(--wash);
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  font-weight: 600;
+}
+.ledger-table tr.dense td { padding-top: 0.55rem; padding-bottom: 0.55rem; }
+.ledger-table tr.proj td:first-child { font-style: italic; }
+.age-col {
+  font-family: var(--reader);
+  color: var(--stamp);
+  white-space: nowrap;
+}

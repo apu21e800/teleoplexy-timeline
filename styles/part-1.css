@@ -1,0 +1,149 @@
+/* Teleoplexy - Statement of projected status. Form paper. */
+:root {
+  --paper: #F4F1EA;
+  --ink: #1B2A4A;
+  --stamp: #C8102E;
+  --muted: #9A9488;
+  --field: #FFFFFF;
+  --wash: #E8E2D6;
+  --focus: #1B2A4A;
+  --form: "Public Sans", system-ui, sans-serif;
+  --reader: "Courier Prime", "Courier New", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--form);
+  font-weight: 400;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--field);
+  padding: 0.5rem 1rem;
+  z-index: 100;
+}
+.skip:focus { left: 0; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+/* Masthead */
+.masthead {
+  border-bottom: 1px solid var(--muted);
+  padding: 1.25rem 1rem 1rem;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+.masthead-title {
+  margin: 0;
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.masthead-sub {
+  margin: 0.15rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.masthead-meta {
+  margin: 0.5rem 0 0;
+  font-size: 0.6875rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+main {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 1rem 4rem;
+}
+
+.panel {
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid var(--wash);
+}
+.panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.panel h3 {
+  margin: 1.5rem 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.lede {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+/* Fields */
+.field-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.optional { font-weight: 400; text-transform: none; letter-spacing: 0; }
+.field-input {
+  display: block;
+  width: 100%;
+  max-width: 12rem;
+  padding: 0.65rem 0.75rem;
+  font-family: var(--reader);
+  font-size: 1.25rem;
+  color: var(--stamp);
+  background: var(--field);
+  border: 1px solid var(--muted);
+  border-radius: 0;
+}
+.field-input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-color: var(--ink);
+}
+.field-hint {
+  margin: 0.5rem 0 1rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.btn-primary, .btn-secondary {
+  font-family: var(--form);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  background: var(--ink);
+  color: var(--field);
+}
