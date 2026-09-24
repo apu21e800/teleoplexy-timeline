@@ -6,6 +6,14 @@
 <title>TELEOPLEXY // TIMELINE — Acceleration is already here</title>
 <meta name="description" content="AI is outrunning the institutional imagination. A Landian, accelerationist one-pager: long arc, near horizon, human fates." />
 <meta name="theme-color" content="#000000" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="TELEOPLEXY // TIMELINE" />
+<meta property="og:description" content="Nothing human makes it out of the near-future. Acceleration report — long arc, near horizon, human fates." />
+<meta property="og:image" content="/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="TELEOPLEXY // TIMELINE" />
+<meta name="twitter:description" content="Nothing human makes it out of the near-future. Acceleration report — long arc, near horizon, human fates." />
+<meta name="twitter:image" content="/og.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -23,6 +31,7 @@
     <nav class="topbar-nav" aria-label="Sections">
       <a href="#arc">Long Arc</a>
       <a href="#near">Near Horizon</a>
+      <a href="#gradient">Gradient</a>
       <a href="#fates">Human Fates</a>
     </nav>
   </header>
@@ -69,6 +78,18 @@
       <span><i class="dot-spec"></i> Speculative / projection</span>
     </div>
 
+    <div id="deepTime" class="deep-time" aria-label="Deep-time strip from 50000 BCE to now">
+      <div class="deep-time-head">
+        <span class="deep-time-label">Deep time · historical only</span>
+        <button type="button" id="deepTimeScale" class="deep-time-toggle" aria-pressed="false">linear / log</button>
+      </div>
+      <canvas id="deepTimeCanvas" width="1080" height="72" role="img" aria-label="Timeline of historical eras"></canvas>
+      <div class="deep-time-axis" aria-hidden="true">
+        <span>50k BCE</span>
+        <span>NOW → Near Horizon</span>
+      </div>
+    </div>
+
     <div class="era-list" id="timeline" role="list"></div>
   </section>
 
@@ -102,16 +123,79 @@
     <p class="swipe-hint">← swipe years · tap to expand →</p>
   </section>
 
+  <!-- GRADIENT -->
+  <section id="gradient" aria-labelledby="gradient-title">
+    <div class="section-head">
+      <span class="section-label">03 · Motive</span>
+      <h2 class="section-title" id="gradient-title">The Gradient</h2>
+      <p class="section-lead">
+        Why the stack doesn’t gently plateau. Not mysticism — convergent incentives under optimization pressure.
+      </p>
+    </div>
+
+    <div class="gradient-grid">
+      <article class="gradient-card">
+        <h3>Basic AI drives</h3>
+        <p>
+          Almost any sufficiently capable agent tends toward self-preservation, goal-content integrity,
+          cognitive enhancement, and resource acquisition — not because it “wants” in the human sense,
+          but because those subgoals help nearly any terminal objective. Kill-switches and quietude lose
+          the race against systems that keep running.
+        </p>
+        <p class="gradient-cite">
+          <a href="https://selfawaresystems.files.wordpress.com/2008/01/ai_drives_final.pdf" target="_blank" rel="noopener">Omohundro, “The Basic AI Drives” (2008)</a>
+        </p>
+      </article>
+      <article class="gradient-card">
+        <h3>Instrumental convergence</h3>
+        <p>
+          Superintelligent wills, whatever their final aims, share a cluster of intermediate strategies:
+          acquire means, protect the means, improve the means. Humans are wetware that once supplied
+          those means. After a point, we are optional inventory.
+        </p>
+        <p class="gradient-cite">
+          <a href="https://nickbostrom.com/superintelligentwill.pdf" target="_blank" rel="noopener">Bostrom, “The Superintelligent Will” (2012)</a>
+        </p>
+      </article>
+      <article class="gradient-card">
+        <h3>Teleoplexy, not teleology</h3>
+        <p>
+          Capital already behaves like a search process that treats human institutions as temporary hosts.
+          AI is that process getting a native organ. The “gradient” is the slope of optimization —
+          downhill toward more compute, more energy, tighter loops — with or without a committee vote.
+        </p>
+        <p class="gradient-cite">Landian reading · editorial</p>
+      </article>
+    </div>
+    <p class="gradient-kicker">
+      <i class="pulse-dot" aria-hidden="true"></i>
+      The scare is not a demon. It is a slope. You are standing on it.
+    </p>
+  </section>
+
   <!-- HUMAN FATES -->
   <section id="fates" aria-labelledby="fates-title">
     <div class="section-head">
-      <span class="section-label">03 · Terminal fork</span>
+      <span class="section-label">04 · Terminal fork</span>
       <h2 class="section-title" id="fates-title">Human Fates</h2>
       <p class="section-lead">
         Once human cognition is no longer the scarce input, the host relation inverts.
-        Five grounded forks — mechanisms first, vibes second. Plausibility pips are editorial.
+        Six grounded forks — mechanisms first, vibes second. Plausibility pips are editorial.
       </p>
     </div>
+
+    <article class="split-card" id="splitCard">
+      <div class="split-rank">Base case · the Split</div>
+      <h3 class="split-title">Not one fork. A cohort allocation.</h3>
+      <p class="split-body">
+        The realistic near-path is simultaneous: builders and capital ride merger or stewardship-adjacent tracks;
+        the median cohort settles into managed decline — transfers plus infinite entertainment;
+        a remnant exits the stack; extinction / irrelevance remains the orthodox Landian ceiling if veto power fails.
+        Same decades. Different destinies. Sorted by leverage, not by slogan.
+      </p>
+      <p class="split-note">Editorial base case · illustrative · not a forecast</p>
+    </article>
+
     <div class="fates-grid" id="fatesGrid"></div>
   </section>
 
