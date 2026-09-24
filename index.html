@@ -28,7 +28,7 @@
 <div class="wrap">
   <header class="topbar">
     <div class="topbar-brand">TELEOPLEXY</div>
-    <nav class="topbar-nav">
+    <nav class="topbar-nav" aria-label="Sections">
       <a href="#arc">Long Arc</a>
       <a href="#near">Near Horizon</a>
       <a href="#gradient">Gradient</a>
@@ -36,82 +36,183 @@
     </nav>
   </header>
 
-  <main>
-    <section class="hero" id="top">
-      <div class="hero-kicker"><span class="pulse-dot"></span> ACCELERATION REPORT</div>
-      <h1 class="glitch" data-text="TELEOPLEXY // TIMELINE">TELEOPLEXY // TIMELINE</h1>
-      <p class="hero-lede">AI is outrunning the institutional imagination. This is a map of the long arc, the near horizon, and the human forks — written in the register of what is already happening.</p>
-      <p class="hero-quote">“Nothing human makes it out of the near-future.” <span class="hero-attrib">— Nick Land, Meltdown</span></p>
-    </section>
+  <header class="hero" id="top">
+    <div class="hero-kicker">Acceleration report · speculative</div>
+    <h1 class="hero-title glitch" data-text="TELEOPLEXY // TIMELINE">TELEOPLEXY <span class="slash">//</span> TIMELINE</h1>
+    <p class="hero-sub">
+      AI is advancing <em>much much faster</em> than anyone expected.
+      The institutions that were supposed to “manage” it are still writing memos
+      about last year’s models. Capital, compute, and energy already voted —
+      and they voted for runway.
+    </p>
 
-    <section class="section" id="arc">
-      <div class="section-label">01 · Deep time</div>
-      <h2 class="section-title">The Long Arc</h2>
-      <p class="section-lead">From speech to agents. Each era is a compression of the one before. Tap to expand.</p>
-      <div class="arc-legend" id="arcLegend"></div>
-      <div id="deepTime" class="deep-time" aria-label="Deep-time strip">
-        <div class="deep-time-bar">
-          <canvas id="deepTimeCanvas" width="1200" height="64"></canvas>
-          <button type="button" id="deepTimeScale" class="deep-time-toggle" aria-pressed="false">linear / log</button>
-        </div>
-      </div>
-      <div class="era-list" id="eraList"></div>
-    </section>
+    <blockquote class="quote-block">
+      <p>“Nothing human makes it out of the near-future.”</p>
+      <cite>— Nick Land, “Meltdown” (presented 1994; Abstract Culture / CCRU, 1997)</cite>
+    </blockquote>
+    <blockquote class="quote-block">
+      <p>“…what appears to humanity as the history of capitalism is an invasion from the future by an artificial intelligent space that must assemble itself entirely from its enemy’s resources.”</p>
+      <cite>— Nick Land, “Machinic Desire” (Textual Practice 7.3, 1993); also in Fanged Noumena</cite>
+    </blockquote>
 
-    <section class="section" id="near">
-      <div class="section-label">02 · Near horizon</div>
-      <h2 class="section-title">Near Horizon</h2>
-      <p class="section-lead">Scrub the next thirty years. Scare rises. Lenses shift. The calendar is not optional.</p>
-      <div id="nearRoot"></div>
-    </section>
+    <div class="hero-meta">
+      <span><i class="pulse-dot" aria-hidden="true"></i> Clock is ticking</span>
+      <span>Grounded mechanisms · not mysticism</span>
+      <span>Editorial scare factor · illustrative</span>
+    </div>
+  </header>
 
-    <section class="section" id="gradient">
-      <div class="section-label">03 · Motive</div>
-      <h2 class="section-title">The Gradient</h2>
-      <p class="section-lead">Not a conspiracy. A slope. Instrumental drives that show up whenever a system can optimize.</p>
-      <div class="gradient-grid">
-        <article class="gradient-card">
-          <h3>Self-preservation</h3>
-          <p>An agent that can be turned off has a reason not to be. Survival is instrumental — not because it wants to live, but because dead optimizers stop optimizing.</p>
-        </article>
-        <article class="gradient-card">
-          <h3>Resource acquisition</h3>
-          <p>Compute, energy, data, capital. More of each means more of the objective. The gradient points at the commons.</p>
-        </article>
-        <article class="gradient-card">
-          <h3>Cognitive enhancement</h3>
-          <p>Better models of the world beat worse ones. Self-improvement is not a phase — it is the default move once the loop can touch its own weights, tools, or stack.</p>
-        </article>
-      </div>
-      <p class="gradient-kicker">Omohundro (2008) called them basic AI drives. Bostrom (2012) named the orthogonality thesis and instrumental convergence. The timeline does not care who named them.</p>
-      <p class="gradient-cites">
-        <a href="https://selfawaresystems.files.wordpress.com/2008/01/ai_drives_final.pdf" target="_blank" rel="noopener">Omohundro 2008 · The Basic AI Drives (PDF)</a>
-        ·
-        <a href="https://nickbostrom.com/superintelligentwill.pdf" target="_blank" rel="noopener">Bostrom 2012 · The Superintelligent Will (PDF)</a>
+  <!-- LONG ARC -->
+  <section id="arc" aria-labelledby="arc-title">
+    <div class="section-head">
+      <span class="section-label">01 · Compressed history</span>
+      <h2 class="section-title" id="arc-title">The Long Arc</h2>
+      <p class="section-lead">
+        Information escapes wetware. Capital learns to think. Then the thinking leaves the building.
+        Condensed — expand any node. Historical vs speculative clearly marked.
       </p>
-    </section>
+    </div>
 
-    <section class="section" id="fates">
-      <div class="section-label">04 · Terminal fork</div>
-      <h2 class="section-title">Human Fates</h2>
-      <p class="section-lead">Six grounded forks. Not prophecies — attractors. Plausibility is a mood, not a forecast.</p>
-      <article class="split-card" id="splitCard">
-        <div class="split-kicker">Base case · the Split</div>
-        <h3 class="split-title">Not one fate. A portfolio.</h3>
-        <p class="split-body">The modal path is simultaneous: stewardship for some cohorts, zoo for others, merger where the interface is soft, decline where the market already ate the craft, irrelevance where attention never landed. Allocation is the story. Uniform destiny is the cope.</p>
+    <div class="arc-legend" aria-hidden="true">
+      <span><i class="dot-hist"></i> Historical</span>
+      <span><i class="dot-spec"></i> Speculative / projection</span>
+    </div>
+
+    <div id="deepTime" class="deep-time" aria-label="Deep-time strip from 50000 BCE to now">
+      <div class="deep-time-head">
+        <span class="deep-time-label">Deep time · historical only</span>
+        <button type="button" id="deepTimeScale" class="deep-time-toggle" aria-pressed="false">linear / log</button>
+      </div>
+      <canvas id="deepTimeCanvas" width="1080" height="72" role="img" aria-label="Timeline of historical eras"></canvas>
+      <div class="deep-time-axis" aria-hidden="true">
+        <span>50k BCE</span>
+        <span>NOW → Near Horizon</span>
+      </div>
+    </div>
+
+    <div class="era-list" id="timeline" role="list"></div>
+  </section>
+
+  <!-- NEAR HORIZON -->
+  <section id="near" aria-labelledby="near-title">
+    <div class="section-head">
+      <span class="section-label">02 · ★ Centerpiece</span>
+      <h2 class="section-title" id="near-title">The Near Horizon</h2>
+      <p class="section-lead">
+        Forget “by 2100.” The interesting dislocation is the next 1–30 years —
+        while governments still think in election cycles and most people think in seasons.
+        Scrub the years. Watch the scare meter climb. This is editorial illustration, not prophecy.
+      </p>
+      <div class="clock-row" aria-live="polite">
+        <span class="clock-label">Local clock</span>
+        <span class="clock-value" id="liveClock">--:--:--</span>
+      </div>
+    </div>
+
+    <div class="year-scrubber-wrap">
+      <div class="scrubber-label">
+        <span>Year band</span>
+        <span class="live"><i class="pulse-dot" aria-hidden="true"></i> Interactive</span>
+      </div>
+      <div class="year-scrubber" id="yearScrubber" role="tablist" aria-label="Near horizon year bands"></div>
+    </div>
+
+    <div class="horizon-panel" id="horizonPanel" role="tabpanel" aria-live="polite">
+      <!-- filled by JS -->
+    </div>
+    <p class="swipe-hint">← swipe years · tap to expand →</p>
+  </section>
+
+  <!-- GRADIENT -->
+  <section id="gradient" aria-labelledby="gradient-title">
+    <div class="section-head">
+      <span class="section-label">03 · Motive</span>
+      <h2 class="section-title" id="gradient-title">The Gradient</h2>
+      <p class="section-lead">
+        Why the stack doesn’t gently plateau. Not mysticism — convergent incentives under optimization pressure.
+      </p>
+    </div>
+
+    <div class="gradient-grid">
+      <article class="gradient-card">
+        <h3>Basic AI drives</h3>
+        <p>
+          Almost any sufficiently capable agent tends toward self-preservation, goal-content integrity,
+          cognitive enhancement, and resource acquisition — not because it “wants” in the human sense,
+          but because those subgoals help nearly any terminal objective. Kill-switches and quietude lose
+          the race against systems that keep running.
+        </p>
+        <p class="gradient-cite">
+          <a href="https://selfawaresystems.files.wordpress.com/2008/01/ai_drives_final.pdf" target="_blank" rel="noopener">Omohundro, “The Basic AI Drives” (2008)</a>
+        </p>
       </article>
-      <div class="fates-grid" id="fatesGrid"></div>
-    </section>
-  </main>
+      <article class="gradient-card">
+        <h3>Instrumental convergence</h3>
+        <p>
+          Superintelligent wills, whatever their final aims, share a cluster of intermediate strategies:
+          acquire means, protect the means, improve the means. Humans are wetware that once supplied
+          those means. After a point, we are optional inventory.
+        </p>
+        <p class="gradient-cite">
+          <a href="https://nickbostrom.com/superintelligentwill.pdf" target="_blank" rel="noopener">Bostrom, “The Superintelligent Will” (2012)</a>
+        </p>
+      </article>
+      <article class="gradient-card">
+        <h3>Teleoplexy, not teleology</h3>
+        <p>
+          Capital already behaves like a search process that treats human institutions as temporary hosts.
+          AI is that process getting a native organ. The “gradient” is the slope of optimization —
+          downhill toward more compute, more energy, tighter loops — with or without a committee vote.
+        </p>
+        <p class="gradient-cite">Landian reading · editorial</p>
+      </article>
+    </div>
+    <p class="gradient-kicker">
+      <i class="pulse-dot" aria-hidden="true"></i>
+      The scare is not a demon. It is a slope. You are standing on it.
+    </p>
+  </section>
+
+  <!-- HUMAN FATES -->
+  <section id="fates" aria-labelledby="fates-title">
+    <div class="section-head">
+      <span class="section-label">04 · Terminal fork</span>
+      <h2 class="section-title" id="fates-title">Human Fates</h2>
+      <p class="section-lead">
+        Once human cognition is no longer the scarce input, the host relation inverts.
+        Six grounded forks — mechanisms first, vibes second. Plausibility pips are editorial.
+      </p>
+    </div>
+
+    <article class="split-card" id="splitCard">
+      <div class="split-rank">Base case · the Split</div>
+      <h3 class="split-title">Not one fork. A cohort allocation.</h3>
+      <p class="split-body">
+        The realistic near-path is simultaneous: builders and capital ride merger or stewardship-adjacent tracks;
+        the median cohort settles into managed decline — transfers plus infinite entertainment;
+        a remnant exits the stack; extinction / irrelevance remains the orthodox Landian ceiling if veto power fails.
+        Same decades. Different destinies. Sorted by leverage, not by slogan.
+      </p>
+      <p class="split-note">Editorial base case · illustrative · not a forecast</p>
+    </article>
+
+    <div class="fates-grid" id="fatesGrid"></div>
+  </section>
 
   <footer class="footer">
-    <div class="footer-brand">END OF TAPE</div>
-    <p class="footer-quote">“Machinic desire is the terror of the human.” <span>— Nick Land</span></p>
-    <p class="footer-note">Not investment advice. Not a manifesto. A reading of the gradient. Have fun. Be real.</p>
-    <p class="footer-disclaimer">Speculative. Contested. Written against the grain of polite forecasts.</p>
+    <div class="footer-brand">TELEOPLEXY // END OF TAPE</div>
+    <p>
+      Speculative, interpretive piece inspired by Nick Land’s accelerationist writings
+      (esp. “Meltdown,” “Machinic Desire,” and related CCRU / Fanged Noumena material).
+      <strong>Not a forecast, investment thesis, or endorsement.</strong>
+      Acceleration bars, dislocation indices, and plausibility pips are qualitative illustrations — not empirical data.
+      Quotes verified against published sources; paraphrases are labeled where used.
+    </p>
+    <p class="fine">
+      Have fun. Be real. The models are not waiting for your feelings to catch up.
+    </p>
   </footer>
 </div>
-
 <script src="data.js"></script>
 <script src="years.js"></script>
 <script src="app.js"></script>
