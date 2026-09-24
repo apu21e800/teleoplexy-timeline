@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>TELEOPLEXY // TIMELINE — Acceleration is already here</title>
+<meta name="description" content="AI is outrunning the institutional imagination. A Landian, accelerationist one-pager: long arc, near horizon, human fates." />
+<meta name="theme-color" content="#000000" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles-near.css" />
+</head>
+<body>
+
+<canvas id="matrix-rain" aria-hidden="true"></canvas>
+<div class="scanlines" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header class="topbar">
+    <div class="topbar-brand">TELEOPLEXY</div>
+    <nav class="topbar-nav" aria-label="Sections">
+      <a href="#arc">Long Arc</a>
+      <a href="#near">Near Horizon</a>
+      <a href="#fates">Human Fates</a>
+    </nav>
+  </header>
+
+  <header class="hero" id="top">
+    <div class="hero-kicker">Acceleration report · speculative</div>
+    <h1 class="hero-title glitch" data-text="TELEOPLEXY // TIMELINE">TELEOPLEXY <span class="slash">//</span> TIMELINE</h1>
+    <p class="hero-sub">
+      AI is advancing <em>much much faster</em> than anyone expected.
+      The institutions that were supposed to “manage” it are still writing memos
+      about last year’s models. Capital, compute, and energy already voted —
+      and they voted for runway.
+    </p>
+
+    <blockquote class="quote-block">
+      <p>“Nothing human makes it out of the near-future.”</p>
+      <cite>— Nick Land, “Meltdown” (presented 1994; Abstract Culture / CCRU, 1997)</cite>
+    </blockquote>
+    <blockquote class="quote-block">
+      <p>“…what appears to humanity as the history of capitalism is an invasion from the future by an artificial intelligent space that must assemble itself entirely from its enemy’s resources.”</p>
+      <cite>— Nick Land, “Machinic Desire” (Textual Practice 7.3, 1993); also in Fanged Noumena</cite>
+    </blockquote>
+
+    <div class="hero-meta">
+      <span><i class="pulse-dot" aria-hidden="true"></i> Clock is ticking</span>
+      <span>Grounded mechanisms · not mysticism</span>
+      <span>Editorial scare factor · illustrative</span>
+    </div>
+  </header>
+
+  <!-- LONG ARC -->
+  <section id="arc" aria-labelledby="arc-title">
+    <div class="section-head">
+      <span class="section-label">01 · Compressed history</span>
+      <h2 class="section-title" id="arc-title">The Long Arc</h2>
+      <p class="section-lead">
+        Information escapes wetware. Capital learns to think. Then the thinking leaves the building.
+        Condensed — expand any node. Historical vs speculative clearly marked.
+      </p>
+    </div>
+
+    <div class="arc-legend" aria-hidden="true">
+      <span><i class="dot-hist"></i> Historical</span>
+      <span><i class="dot-spec"></i> Speculative / projection</span>
+    </div>
+
+    <div class="era-list" id="timeline" role="list"></div>
+  </section>
+
+  <!-- NEAR HORIZON -->
+  <section id="near" aria-labelledby="near-title">
+    <div class="section-head">
+      <span class="section-label">02 · ★ Centerpiece</span>
+      <h2 class="section-title" id="near-title">The Near Horizon</h2>
+      <p class="section-lead">
+        Forget “by 2100.” The interesting dislocation is the next 1–30 years —
+        while governments still think in election cycles and most people think in seasons.
+        Scrub the years. Watch the scare meter climb. This is editorial illustration, not prophecy.
+      </p>
+      <div class="clock-row" aria-live="polite">
+        <span class="clock-label">Local clock</span>
+        <span class="clock-value" id="liveClock">--:--:--</span>
+      </div>
+    </div>
+
+    <div class="year-scrubber-wrap">
+      <div class="scrubber-label">
+        <span>Year band</span>
+        <span class="live"><i class="pulse-dot" aria-hidden="true"></i> Interactive</span>
+      </div>
+      <div class="year-scrubber" id="yearScrubber" role="tablist" aria-label="Near horizon year bands"></div>
+    </div>
+
+    <div class="horizon-panel" id="horizonPanel" role="tabpanel" aria-live="polite">
+      <!-- filled by JS -->
+    </div>
+    <p class="swipe-hint">← swipe years · tap to expand →</p>
+  </section>
+
+  <!-- HUMAN FATES -->
+  <section id="fates" aria-labelledby="fates-title">
+    <div class="section-head">
+      <span class="section-label">03 · Terminal fork</span>
+      <h2 class="section-title" id="fates-title">Human Fates</h2>
+      <p class="section-lead">
+        Once human cognition is no longer the scarce input, the host relation inverts.
+        Five grounded forks — mechanisms first, vibes second. Plausibility pips are editorial.
+      </p>
+    </div>
+    <div class="fates-grid" id="fatesGrid"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-brand">TELEOPLEXY // END OF TAPE</div>
+    <p>
+      Speculative, interpretive piece inspired by Nick Land’s accelerationist writings
+      (esp. “Meltdown,” “Machinic Desire,” and related CCRU / Fanged Noumena material).
+      <strong>Not a forecast, investment thesis, or endorsement.</strong>
+      Acceleration bars, dislocation indices, and plausibility pips are qualitative illustrations — not empirical data.
+      Quotes verified against published sources; paraphrases are labeled where used.
+    </p>
+    <p class="fine">
+      Have fun. Be real. The models are not waiting for your feelings to catch up.
+    </p>
+  </footer>
+</div>
+<script src="data.js"></script>
+<script src="years.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
