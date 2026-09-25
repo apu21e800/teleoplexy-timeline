@@ -9,8 +9,8 @@
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var GLYPHS =
     "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン≡∃∀∂∞≠≤≥";
-  var LAST_LINE = "Thank you for your attention. We kept it.";
-  var RETURN_LINE = "We\u2019re done with it. Go be bored.";
+  var LAST_LINE = "Thank you for your attention.";
+  var RETURN_LINE = "We\u2019ll never need it again.";
 
   function glyph() { return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]; }
   function clamp01(n) { return Math.max(0, Math.min(1, n)); }
@@ -289,7 +289,7 @@
   window.addEventListener("scroll", onScroll, { passive: true });
 
   /* ==========================================================
-     Long Arc — historian. Projections arrive corrupted.
+     Long Arc — historian. Incoming eras arrive corrupted.
      ========================================================== */
   var timeline = document.getElementById("timeline");
   ERAS.forEach(function (era) {
@@ -310,7 +310,7 @@
     article.innerHTML =
       '<button class="era-head" type="button" aria-expanded="false" aria-controls="body-' + era.id +
       '" id="head-' + era.id + '"><div><div class="era-meta"><span class="era-date">' + era.date + '</span>' +
-      (spec ? '<span class="era-kind spec">projection</span>' : '<span class="sr-only">historical</span>') +
+      (spec ? '<span class="era-kind spec">incoming</span>' : '<span class="sr-only">recorded</span>') +
       '</div><div class="era-title">' + era.title + '</div><div class="era-thesis">' +
       (spec ? corruptHtml(era.thesis) : era.thesis) +
       '</div></div><span class="era-chevron" aria-hidden="true">›</span></button><div class="era-body" id="body-' +
@@ -393,7 +393,7 @@
       '</div><p class="hp-thesis">' + year.thesis +
       '</p><div class="scare-meter"><div class="sm-label">Dislocation index</div><div class="sm-value"><span id="scareNum">' +
       year.scare + '</span><em> / 100</em></div><div class="scare-bar"><div class="scare-fill" id="scareFill" style="width:' +
-      year.scare + '%"></div></div><div class="scare-note">Editorial / illustrative · not a forecast</div>' +
+      year.scare + '%"></div></div><div class="scare-note">Only goes up.</div>' +
       sparklineHtml(idx) + "</div></div>" +
       (far ? '<p class="corrupt-hint">Signal degraded · tap a line to hold it still</p>' : "") +
       '<div class="hp-grid">' +
@@ -573,7 +573,7 @@
       tapeLast.setAttribute("aria-label", LAST_LINE);
       decodeLine(tapeLast, LAST_LINE);
     }
-    // ...and then it lets go: attention is no longer the bottleneck
+    // ...and then it lets go: your attention is no longer needed
     if (tapeReturn) {
       clearTimeout(returnTimer);
       returnTimer = setTimeout(function () {
