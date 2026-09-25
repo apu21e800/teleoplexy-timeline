@@ -39,7 +39,7 @@ labor: "Massive white-collar displacement scenarios stop being hypothetical. Ser
 culture: "Entertainment + AI slop as full lifestyle. Social reality fragments into customized bubbles so complete that shared facts feel optional. Attention is the last mass commodity still harvested from humans.",
 builders: "The contributing minority runs compute, energy, robotics, and alignment (or anti-alignment) research. Network effects harden. Exit optionality becomes the new class marker.",
 identity: "‘Post-singularity therapy’ is a real emerging need: grief for obsolete selves, status collapse, meaning drought. Playful branding, serious caseloads. Churches and clinics compete for the same patients.",
-governance: "Compute governance experiments; emergency powers talk after a scary incident (real or hyped). Energy and capital allocation increasingly techonomic. Democratic lag is the feature, not the bug."
+governance: "Soft War already — Lowery’s frame: the fight is cognitive, not kinetic. Attention and legitimacy are the contested terrain while states still warehouse missiles. Compute governance theater; energy and capital set the tempo. Democratic lag is the feature."
 },
 {
 y: 10, label: "10 YR", horizon: "+10 years",
