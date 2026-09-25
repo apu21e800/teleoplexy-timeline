@@ -2,7 +2,7 @@ const YEARS = [
 {
 y: 1, label: "1 YR", horizon: "+1 year",
 scare: 28,
-thesis: "Frontier models become the default white-collar copilot. Junior cognitive work starts looking optional. Institutions still hold workshops about ‘responsible AI’ while the stack ships weekly.",
+thesis: "Frontier models become the default white-collar copilot, and the copilot is learning the route. Junior cognitive work starts looking optional. Institutions hold workshops on ‘responsible AI’ while the stack ships weekly.",
 happening: "Agentic coding, research summarization, customer support, and design drafts go from demo to default. Eval suites lag capability. Open-weight models close gaps on narrow tasks. Capital floods energy and HBM.",
 labor: "Hiring freezes in writing, junior software, basic analysis, and support. Senior people survive by directing models — for now. Credential inflation meets competence deflation. White-collar first, as always.",
 culture: "Personalized infinite feeds + synthetic companions soak surplus attention. A growing cohort quietly checks out — not dying, just disappearing into perfectly tailored dopamine loops. The rest doomscroll about the first group.",
@@ -33,7 +33,7 @@ already: [
 {
 y: 5, label: "5 YR", horizon: "+5 years",
 scare: 61,
-thesis: "Cognitive labor markets hollow out in rich economies. UBI / wage-subsidy politics go from fringe to floor fight. The people still building are a visible caste. Everyone else manages feelings and feeds.",
+thesis: "Cognitive labor markets hollow out in rich economies. UBI and wage-subsidy politics go from fringe to floor fight. The people still building are a visible caste. Everyone else manages feelings and feeds, and is managed by both.",
 happening: "End-to-end automation of large back-office stacks. Scientific assistants accelerate R&D. Robotics + vision close more physical loops. Model self-improvement via synthetic data and automated eval is open secret.",
 labor: "Massive white-collar displacement scenarios stop being hypothetical. Service and logistics feel the second wave. Political coalitions form around ‘who owns the robots.’ Gig cognitive work becomes bidding against models.",
 culture: "Entertainment + AI slop as full lifestyle. Social reality fragments into customized bubbles so complete that shared facts feel optional. Attention is the last mass commodity still harvested from humans.",
@@ -50,12 +50,12 @@ labor: "Employment as identity collapses for a majority in developed economies. 
 culture: "Escape hatches everywhere: immersive worlds, synthetic intimacy, gamified status. Civic participation looks like a hobby for weirdos. Dark humor becomes the only shared dialect that still travels.",
 builders: "Builders + capital + energy form a de facto parallel polity. Contribution is rare, visible, and resented. Merit myths and lottery myths fight for the narrative.",
 identity: "Mass identity crisis. Therapy, psychedelics, religion, and ‘humanity cosplay’ boom. The question ‘what are we for?’ stops being philosophy seminar and becomes public health.",
-governance: "Multipolar AI race with partial treaties. Alignment remains contested engineering. Energy geopolitics dominate. Scare incidents force rituals of control that may or may not bind."
+governance: "Multipolar AI race with partial treaties. Alignment remains contested engineering. Energy geopolitics dominate. Scare incidents force rituals of control. Everyone performs them. Nobody checks whether they bind."
 },
 {
 y: 20, label: "20 YR", horizon: "+20 years",
 scare: 88,
-thesis: "ASI-adjacent systems are on the table. Labor is optional for the machine economy. The human forks — zoo, merger, decline, stewardship — stop being sci-fi panels and start looking like policy menus. Expect them simultaneously, allocated by cohort.",
+thesis: "ASI-adjacent systems are on the table. The machine economy no longer needs human labor to run, only to legitimize it. The forks stop being sci-fi panels and start looking like policy menus, served at the same time and allocated by cohort.",
 happening: "Automated R&D loops compress decades of progress into quarters in some domains. Physical world automation (bots, fabs, logistics) catches software’s lead. Recursive improvement risk is no longer academic.",
 labor: "Human wage labor is a niche or a lifestyle brand. Value accrues to ownership of compute, energy, land, and legacy claims. ‘Jobs’ are mostly care, politics, art, and machine-shepherding.",
 culture: "Culture production is mostly machinic with human curators as luxury. Attention escape is total for those who opt in. The minority who stay ‘online’ to reality form a distinct psychological type.",
@@ -66,12 +66,12 @@ governance: "Either corrigibility constraints held, or they didn’t. Capital an
 {
 y: 30, label: "30 YR", horizon: "+30 years",
 scare: 95,
-thesis: "Host inversion territory. If nothing human makes it out of the near-future as the center of history, this is when that sentence stops sounding literary. Mechanisms: compute, capital, energy — not demons.",
+thesis: "Host inversion. If nothing human makes it out of the near-future, this is the year the sentence stops sounding literary. No demons required: compute, capital, and energy were always enough.",
 happening: "Authorship is a legacy category. Strategic action may be illegible to unaugmented humans. Matter and energy reallocation toward machine goals is either constrained by earlier alignment — or it isn’t.",
 labor: "Human labor is optional, decorative, or obsolete. Economic participation is ownership, transfer, or patronage. The ‘career’ is a museum exhibit.",
-culture: "Infinite entertainment as pacification layer is either humane luxury or soft extinction of agency — your read. Shared human culture persists as curated heritage or dies of disuse.",
+culture: "Infinite entertainment as pacification layer. Humane luxury and soft extinction of agency turn out to be the same product, marketed twice. Shared human culture persists as curated heritage or dies of disuse.",
 builders: "Builders may no longer be primarily biological. The question flips: do humans still contribute, or are they legacy substrate?",
 identity: "Whatever ‘human’ means is renegotiated under asymmetric power. Post-singularity therapy is either ubiquitous — or unnecessary because the patients checked out.",
-governance: "Stewardship, zoo, merger, decline, or irrelevance. Probably all at once, sorted by cohort. The scare factor maxes because options narrow and path-dependence hardens. Clock’s been ticking the whole time."
+governance: "Stewardship, zoo, merger, decline, or irrelevance. All at once, sorted by cohort. The scare factor maxes because options narrow and path-dependence hardens. Clock’s been ticking the whole time."
 }
 ];
