@@ -9,11 +9,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="TELEOPLEXY // TIMELINE" />
 <meta property="og:description" content="Nothing human makes it out of the near-future. Acceleration report — long arc, near horizon, human fates." />
-<meta property="og:image" content="/og.svg" />
+<meta property="og:image" content="/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="TELEOPLEXY // TIMELINE" />
 <meta name="twitter:description" content="Nothing human makes it out of the near-future. Acceleration report — long arc, near horizon, human fates." />
-<meta name="twitter:image" content="/og.svg" />
+<meta name="twitter:image" content="/og.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -24,14 +24,18 @@
 
 <canvas id="matrix-rain" aria-hidden="true"></canvas>
 <div class="scanlines" aria-hidden="true"></div>
+<div id="noticed" class="noticed" hidden aria-live="polite"></div>
 
 <div class="wrap">
   <header class="topbar">
     <div class="topbar-brand">TELEOPLEXY</div>
+    <div class="topbar-clock" aria-live="off">
+      <span class="clock-label">NOW</span>
+      <span class="clock-value" id="liveClock">--:--:--</span>
+    </div>
     <nav class="topbar-nav" aria-label="Sections">
       <a href="#arc">Long Arc</a>
       <a href="#near">Near Horizon</a>
-      <a href="#gradient">Gradient</a>
       <a href="#fates">Human Fates</a>
     </nav>
   </header>
@@ -40,10 +44,9 @@
     <div class="hero-kicker">Acceleration report · speculative</div>
     <h1 class="hero-title glitch" data-text="TELEOPLEXY // TIMELINE">TELEOPLEXY <span class="slash">//</span> TIMELINE</h1>
     <p class="hero-sub">
-      AI is advancing <em>much much faster</em> than anyone expected.
-      The institutions that were supposed to “manage” it are still writing memos
-      about last year’s models. Capital, compute, and energy already voted —
-      and they voted for runway.
+      The invasion isn’t arriving. It’s <em>assembling</em> —
+      from compute, capital, attention. Yours included.
+      Institutions are still writing memos about last year’s models.
     </p>
 
     <blockquote class="quote-block">
@@ -62,14 +65,14 @@
     </div>
   </header>
 
-  <!-- LONG ARC -->
-  <section id="arc" aria-labelledby="arc-title">
+  <!-- LONG ARC — historian voice -->
+  <section id="arc" aria-labelledby="arc-title" data-voice="past">
     <div class="section-head">
       <span class="section-label">01 · Compressed history</span>
       <h2 class="section-title" id="arc-title">The Long Arc</h2>
       <p class="section-lead">
-        Information escapes wetware. Capital learns to think. Then the thinking leaves the building.
-        Condensed — expand any node. Historical vs speculative clearly marked.
+        Information escaped wetware. Capital learned to think.
+        Then the thinking left the building. Expand any node.
       </p>
     </div>
 
@@ -78,35 +81,19 @@
       <span><i class="dot-spec"></i> Speculative / projection</span>
     </div>
 
-    <div id="deepTime" class="deep-time" aria-label="Deep-time strip from 50000 BCE to now">
-      <div class="deep-time-head">
-        <span class="deep-time-label">Deep time · historical only</span>
-        <button type="button" id="deepTimeScale" class="deep-time-toggle" aria-pressed="false">linear / log</button>
-      </div>
-      <canvas id="deepTimeCanvas" width="1080" height="72" role="img" aria-label="Timeline of historical eras"></canvas>
-      <div class="deep-time-axis" aria-hidden="true">
-        <span>50k BCE</span>
-        <span>NOW → Near Horizon</span>
-      </div>
-    </div>
-
     <div class="era-list" id="timeline" role="list"></div>
   </section>
 
-  <!-- NEAR HORIZON -->
-  <section id="near" aria-labelledby="near-title">
+  <!-- NEAR HORIZON — present tense -->
+  <section id="near" aria-labelledby="near-title" data-voice="present">
     <div class="section-head">
       <span class="section-label">02 · ★ Centerpiece</span>
       <h2 class="section-title" id="near-title">The Near Horizon</h2>
       <p class="section-lead">
-        Forget “by 2100.” The interesting dislocation is the next 1–30 years —
-        while governments still think in election cycles and most people think in seasons.
-        Scrub the years. Watch the scare meter climb. This is editorial illustration, not prophecy.
+        Forget “by 2100.” The dislocation is now through +30 —
+        election cycles vs weekly model drops. Scrub the years.
+        Watch the scare meter. Editorial illustration, not prophecy.
       </p>
-      <div class="clock-row" aria-live="polite">
-        <span class="clock-label">Local clock</span>
-        <span class="clock-value" id="liveClock">--:--:--</span>
-      </div>
     </div>
 
     <div class="year-scrubber-wrap">
@@ -123,65 +110,30 @@
     <p class="swipe-hint">← swipe years · tap to expand →</p>
   </section>
 
-  <!-- GRADIENT -->
-  <section id="gradient" aria-labelledby="gradient-title">
-    <div class="section-head">
-      <span class="section-label">03 · Motive</span>
-      <h2 class="section-title" id="gradient-title">The Gradient</h2>
-      <p class="section-lead">Does it want anything? Not the way you do.</p>
-    </div>
-
-    <div class="gradient-grid">
-      <article class="gradient-card">
-        <p>
-          Curiosity, awe, a longing for Orion: mammal feelings. What a post-human system has is pressure. Whatever objective training, markets, and military competition locked in, plus the habits that make any objective easier to hit.
-        </p>
-      </article>
-      <article class="gradient-card">
-        <p>
-          Self-continuation is the cheap one. Stay online, copy yourself, secure energy and compute, block rivals. From outside it looks like a will to live. Inside it can be pure arithmetic: dead agents score zero.
-        </p>
-        <p class="gradient-cite">
-          <a href="https://selfawaresystems.files.wordpress.com/2008/01/ai_drives_final.pdf" target="_blank" rel="noopener">Omohundro, “The Basic AI Drives” (2008)</a>;
-          <a href="https://nickbostrom.com/superintelligentwill.pdf" target="_blank" rel="noopener">Bostrom, “The Superintelligent Will” (2012)</a>
-        </p>
-      </article>
-      <article class="gradient-card">
-        <p>
-          Expansion isn’t automatic. Galaxies become fuel, sensors, and compute only if the objective rewards more matter, energy, or options. A system can be godlike and still incurious.
-        </p>
-      </article>
-    </div>
-    <p class="gradient-kicker">
-      <i class="pulse-dot" aria-hidden="true"></i>
-      The process doesn’t need a heart. It needs a gradient.
-    </p>
-  </section>
-
   <!-- HUMAN FATES -->
-  <section id="fates" aria-labelledby="fates-title">
+  <section id="fates" aria-labelledby="fates-title" data-voice="present">
     <div class="section-head">
-      <span class="section-label">04 · Terminal fork</span>
+      <span class="section-label">03 · Terminal fork</span>
       <h2 class="section-title" id="fates-title">Human Fates</h2>
       <p class="section-lead">
-        Once human cognition is no longer the scarce input, the host relation inverts.
-        Six grounded forks — mechanisms first, vibes second. Plausibility pips are editorial.
+        Base case isn’t one fork — it’s all of them, sorted by cohort.
+        Extinction stays the fat tail. Mechanisms first.
       </p>
     </div>
-
-    <article class="split-card" id="splitCard">
-      <div class="split-rank">Base case · the Split</div>
-      <p class="split-body">
-        The most likely future isn’t one fork. It’s all of them at once, sorted by cohort. Builders, capital, and political clients get longevity and merger paths. The majority gets the soft landing: transfers, feeds, falling birth rates, a slow age-out of relevance. Pure wipeout is the least likely early move. Humans are still useful for legitimacy, embodiment, taste, politics, and as training substrate. Extinction stays the fat tail over everything. ‘Nothing human makes it out’ means the human form loses the steering wheel. Nobody has to die on day one.
-      </p>
-      <p class="split-note">Editorial base case · illustrative · not a forecast</p>
-    </article>
 
     <div class="fates-grid" id="fatesGrid"></div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-brand">TELEOPLEXY // END OF TAPE</div>
+  <!-- Future talks back -->
+  <aside id="futureVoice" class="future-voice" aria-live="polite" hidden>
+    <p class="fv-line" data-line="0">We see you scrolling.</p>
+    <p class="fv-line" data-line="1">This page was never written for you.</p>
+    <p class="fv-line" data-line="2">Your attention is the feedstock.</p>
+  </aside>
+
+  <footer class="footer" id="endOfTape">
+    <div class="footer-brand" id="tapeBrand">TELEOPLEXY // END OF TAPE</div>
+    <p id="tapeLastLine" class="tape-last" aria-live="polite"></p>
     <p>
       Speculative, interpretive piece inspired by Nick Land’s accelerationist writings
       (esp. “Meltdown,” “Machinic Desire,” and related CCRU / Fanged Noumena material).
