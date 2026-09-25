@@ -129,8 +129,8 @@
     rainSpeed = 0.55 + h * 1.1;
     respawn = 0.03 + h * 0.07;
     glitch = 0.2 + h * 0.8;
-    // baseline ≈ main (.18 canvas × .55 glyphs), a touch brighter; escalation on top
-    if (!reducedMotion) canvas.style.opacity = String(crawl ? 0.34 : 0.22 + h * 0.2);
+    // calm baseline (≈ main's .18), same escalation curve scaled ~0.8 on top
+    if (!reducedMotion) canvas.style.opacity = String(crawl ? 0.28 : 0.18 + h * 0.16);
     document.documentElement.style.setProperty("--glitch-intensity", String(glitch));
     document.body.classList.toggle("rain-crawl", crawl);
   }

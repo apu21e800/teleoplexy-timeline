@@ -432,5 +432,5 @@ body.tape-event .pulse-dot {
   .fv-line { opacity: 1; transform: none; }
   .tape-return { opacity: 1; }
   /* still frame of rain, visible (styles.css forced .04) */
-  html body #matrix-rain { opacity: .2 !important; }
+  html body #matrix-rain { opacity: .16 !important; }
 }
