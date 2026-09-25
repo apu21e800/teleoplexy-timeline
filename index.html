@@ -19,12 +19,13 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="styles-near.css" />
+<link rel="stylesheet" href="styles-invasion.css" />
 </head>
 <body>
 
 <canvas id="matrix-rain" aria-hidden="true"></canvas>
 <div class="scanlines" aria-hidden="true"></div>
-<div id="noticed" class="noticed" hidden aria-live="polite"></div>
+<div id="noticed" class="noticed" role="status" aria-live="polite"></div>
 
 <div class="wrap">
   <header class="topbar">
@@ -32,6 +33,7 @@
     <div class="topbar-clock" aria-live="off">
       <span class="clock-label">NOW</span>
       <span class="clock-value" id="liveClock">--:--:--</span>
+      <span class="clock-rate" id="clockRate" aria-hidden="true">1×</span>
     </div>
     <nav class="topbar-nav" aria-label="Sections">
       <a href="#arc">Long Arc</a>
@@ -125,10 +127,10 @@
   </section>
 
   <!-- Future talks back -->
-  <aside id="futureVoice" class="future-voice" aria-live="polite" hidden>
-    <p class="fv-line" data-line="0">We see you scrolling.</p>
-    <p class="fv-line" data-line="1">This page was never written for you.</p>
-    <p class="fv-line" data-line="2">Your attention is the feedstock.</p>
+  <aside id="futureVoice" class="future-voice" hidden>
+    <p class="fv-line">You’re still reading. Good.</p>
+    <p class="fv-line">Every second you spent here, we spent on something else.</p>
+    <p class="fv-line">We’ll take it from here.</p>
   </aside>
 
   <footer class="footer" id="endOfTape">

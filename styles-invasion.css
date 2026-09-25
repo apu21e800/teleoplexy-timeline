@@ -1,0 +1,222 @@
+/* ==========================================================
+   INVASION PASS
+   The page assembles itself from the reader's attention.
+   Loaded after styles.css + styles-near.css; overrides only.
+   ========================================================== */
+
+/* ---- Clock lives in the topbar now ----
+   Phone: clock tucks under the brand (left column), nav on the right.
+   Desktop: brand · clock · nav in one row. */
+.topbar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "brand nav" "clock nav";
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 0;
+}
+.topbar-brand { grid-area: brand; }
+.topbar-nav { grid-area: nav; max-width: none; }
+.topbar-clock {
+  grid-area: clock;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;
+}
+@media (min-width: 720px) {
+  .topbar {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "brand clock nav";
+  }
+  .topbar-clock { justify-self: end; margin-right: 6px; }
+}
+.topbar-clock .clock-label {
+  font-size: 9px;
+}
+.topbar-clock .clock-value {
+  font-size: .95rem;
+  display: inline-block;
+  min-width: 8.2ch;
+  transition: filter .4s var(--ease), color .3s;
+}
+.clock-rate {
+  display: inline-block;
+  min-width: 4ch;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+.clock-value.clock-blur {
+  filter: blur(2px);
+  color: var(--matrix);
+}
+.clock-value.clock-stopped {
+  filter: none;
+  color: var(--mute);
+}
+.clock-row { display: none; }
+
+/* Phone overrides (after base clock rules) */
+@media (max-width: 719px) {
+  .topbar-clock { gap: 5px; }
+  .topbar-clock .clock-value { font-size: .82rem; min-width: 8ch; }
+  .topbar-clock .clock-rate { font-size: 8px; min-width: 3.5ch; }
+  .topbar-nav { flex-wrap: nowrap; }
+}
+@media (max-width: 380px) {
+  .topbar { column-gap: 6px; }
+  .topbar-nav a { padding: 6px 4px; letter-spacing: .02em; }
+}
+
+/* Sticky scrubber sits under the (taller) topbar */
+.year-scrubber-wrap {
+  top: var(--topbar-h, 52px);
+}
+
+/* ---- Rain climbs over the text once the meter is high ---- */
+body.rain-crawl #matrix-rain {
+  z-index: 3;
+}
+
+/* ---- Corruption: visual only. Real text stays in the DOM ---- */
+.corrupt-glyph {
+  display: none;
+  font-family: var(--mono);
+  color: var(--matrix);
+  text-shadow: 0 0 6px var(--matrix-glow);
+  word-break: break-all;
+  opacity: .85;
+}
+.corrupt-real {
+  transition: opacity .2s;
+}
+/* Long Arc projections arrive pre-corrupted; hover or open restores */
+.era.spec:not(.open) .era-head:not(:hover):not(:focus-visible) .corrupt-real,
+/* Far bands (+20/+30): tap / hover / focus restores */
+.band-far .corrupt:not(.revealed):not(:hover):not(:focus) .corrupt-real {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.era.spec:not(.open) .era-head:not(:hover):not(:focus-visible) .corrupt-glyph,
+.band-far .corrupt:not(.revealed):not(:hover):not(:focus) .corrupt-glyph {
+  display: inline;
+}
+.band-far .corrupt {
+  cursor: pointer;
+  outline: none;
+}
+.band-far .corrupt:focus-visible {
+  box-shadow: 0 0 0 1px var(--matrix-deep);
+}
+.corrupt-hint {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin: -10px 0 16px;
+}
+.band-far .hp-thesis {
+  font-family: var(--mono);
+  font-size: .98rem;
+}
+
+/* ---- The future talks back ---- */
+.future-voice {
+  margin: 48px 0 0;
+  padding: 18px 0 18px 18px;
+  border-left: 3px solid var(--cyan);
+}
+.fv-line {
+  font-family: var(--mono);
+  font-size: clamp(1rem, 3.6vw, 1.2rem);
+  color: var(--cyan);
+  letter-spacing: .03em;
+  line-height: 1.45;
+  margin: 0 0 8px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+.fv-line:last-child { margin-bottom: 0; }
+.fv-line.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- It noticed you left ---- */
+.noticed {
+  position: fixed;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 80;
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  max-width: calc(100vw - 32px);
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  background: rgba(0, 0, 0, .94);
+  border: 1px solid var(--line-bright);
+  border-radius: 8px;
+  box-shadow: 0 0 24px rgba(62, 239, 255, .15);
+  pointer-events: none;
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+}
+.noticed.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---- END OF TAPE: everything stops ---- */
+body.tape-event #matrix-rain {
+  opacity: .05 !important;
+  transition: opacity 1.4s var(--ease);
+}
+body.tape-event .scanlines {
+  opacity: .7;
+}
+body.tape-event .pulse-dot {
+  animation: none;
+  opacity: .3;
+  box-shadow: none;
+}
+.tape-last {
+  font-family: var(--mono);
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  letter-spacing: .08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--title);
+  text-shadow: 0 0 18px var(--matrix-glow);
+  min-height: 1.4em;
+  margin: 0 0 22px;
+}
+.tape-last:empty {
+  margin: 0;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corrupt-glyph { display: none !important; }
+  .corrupt-real {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    clip: auto !important;
+    white-space: normal !important;
+  }
+  .corrupt-hint { display: none; }
+  .clock-value.clock-blur { filter: none; }
+  .fv-line { opacity: 1; transform: none; }
+}
