@@ -96,14 +96,33 @@
   var canvas = document.getElementById("matrix-rain");
   var ctx = canvas.getContext("2d");
   var CELL = 14;
-  var drops = [];             // row position per column (float)
-  var jitter = [];            // per-column speed variance
-  var rainSpeed = 0.55;       // rows per 60fps frame
-  var respawn = 0.03;         // chance a finished column restarts, per frame
+  // Every column is its own stream: its own speed and trail length, idle gaps
+  // between drops, the odd hold-then-go stutter, glyphs that mutate slowly in
+  // place. Sparse but crisp, never a uniform sheet.
+  var cols = [];              // per-column stream state
+  var rainRows = 0;
+  var rainSpeed = 0.36;       // base rows per 60fps frame (x per-column 0.4-1.25)
+  var rainHeat = 0;           // 0..1, drives speed, density, flicker
   var glitch = 0.2;
   var rainRaf = 0;
   var rainRunning = false;
   var lastFrame = 0;
+
+  function colSpeed() { return 0.4 + Math.random() * 0.85; }
+  function newDrop(c, midFall) {
+    c.active = true;
+    c.speed = colSpeed();
+    c.len = 8 + Math.floor(Math.pow(Math.random(), 1.3) * 30);   // 8-37 rows, mostly short-mid
+    c.y = midFall ? Math.random() * (rainRows + c.len) : -Math.random() * 6;
+    c.hold = 0;
+    c.bright = Math.random() > 0.35 - glitch * 0.2;              // white-hot head or plain green
+    c.g = [];                                                     // row -> glyph, filled lazily
+  }
+  function idle(c) {
+    c.active = false;
+    // random gap before the next drop; gaps shrink as the heat rises
+    c.wait = (10 + Math.random() * 120) * (1 - rainHeat * 0.75);
+  }
 
   // Sized to the tallest the viewport gets (mobile URL bar), so scrolling on a
   // phone doesn't wipe the rain every time the toolbar hides. Width changes rebuild.
@@ -113,11 +132,16 @@
     canvas.width = w;
     canvas.height = Math.max(window.innerHeight, Math.min(window.screen ? window.screen.height : 0, window.innerHeight * 1.4));
     canvas.style.height = canvas.height + "px";
-    var cols = Math.ceil(canvas.width / CELL);
-    var rows = Math.ceil(canvas.height / CELL);
-    // start mid-fall so the first screen already has rain on it
-    drops = Array.from({ length: cols }, function () { return Math.random() * rows * 1.3 - rows * 0.3; });
-    jitter = Array.from({ length: cols }, function () { return 0.75 + Math.random() * 0.5; });
+    rainRows = Math.ceil(canvas.height / CELL);
+    var n = Math.ceil(canvas.width / CELL);
+    cols = [];
+    for (var i = 0; i < n; i++) {
+      var c = {};
+      // most columns start mid-fall so the first screen already has rain; the rest wait
+      if (Math.random() < 0.8) newDrop(c, true);
+      else { idle(c); c.wait = Math.random() * 160; }
+      cols.push(c);
+    }
     return true;
   }
 
@@ -126,8 +150,8 @@
     var scare = nearReached && YEARS[activeYearIndex] ? YEARS[activeYearIndex].scare / 100 : 0;
     var h = Math.max((arcAccel / 100) * 0.4, scare, scrollDepth * 0.6);
     var crawl = h > 0.8 && nearInView;
-    rainSpeed = 0.55 + h * 1.1;
-    respawn = 0.03 + h * 0.07;
+    rainHeat = h;
+    rainSpeed = 0.36 + h * 1.0;
     glitch = 0.2 + h * 0.8;
     // calm baseline (≈ main's .18), same escalation curve scaled ~0.8 on top
     if (!reducedMotion) canvas.style.opacity = String(crawl ? 0.28 : 0.18 + h * 0.16);
@@ -135,29 +159,51 @@
     document.body.classList.toggle("rain-crawl", crawl);
   }
 
-  function drawGlyph(col, row, head) {
-    var bright = head && Math.random() > 0.35 - glitch * 0.2;
-    ctx.fillStyle = bright ? "#E8FFE8" : "#00FF41";
-    ctx.globalAlpha = bright ? 0.95 : 0.6 + glitch * 0.25;
-    ctx.fillText(glyph(), CELL * col, CELL * row);
-  }
-
   function drawRain(now) {
     if (!rainRunning) return;
     var dt = lastFrame ? Math.min(3, (now - lastFrame) / 16.67) : 1;
     lastFrame = now;
     ctx.globalAlpha = 1;
-    ctx.fillStyle = "rgba(0, 0, 0, " + (0.075 * dt).toFixed(3) + ")";
+    ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = CELL + "px monospace";
-    var maxRow = canvas.height / CELL;
-    for (var i = 0; i < drops.length; i++) {
-      var prev = Math.floor(drops[i]);
-      drops[i] += rainSpeed * jitter[i] * dt;
-      var cur = Math.floor(drops[i]);
+    var flick = (0.006 + glitch * 0.012) * dt;   // per-glyph chance to mutate this frame (~every 1-2s)
+    var trailA = 0.6 + glitch * 0.25;
+    for (var i = 0; i < cols.length; i++) {
+      var c = cols[i];
+      if (!c.active) {
+        c.wait -= dt;
+        if (c.wait <= 0) newDrop(c, false);
+        continue;
+      }
+      if (c.hold > 0) {
+        // holding for a beat: the head stutters in place
+        c.hold -= dt;
+        if (Math.random() < 0.12 * dt) c.g[Math.floor(c.y)] = glyph();
+      } else {
+        c.y += rainSpeed * c.speed * dt;
+        if (Math.random() < 0.0035 * dt) c.hold = 10 + Math.random() * 45;
+        else if (Math.random() < 0.002 * dt) c.speed = colSpeed();
+      }
+      var head = Math.floor(c.y);
+      if (head - c.len > rainRows) { idle(c); continue; }
+      var x = CELL * i;
       // draw on whole rows only: crisp columns, no smeared overlap
-      for (var r = prev + 1; r <= cur; r++) if (r >= 1) drawGlyph(i, r, r === cur);
-      if (cur > maxRow && Math.random() < respawn * dt) drops[i] = -Math.random() * 12;
+      for (var k = 0; k < c.len; k++) {
+        var r = head - k;
+        if (r < 1) break;
+        if (r > rainRows) continue;
+        var ch = c.g[r];
+        if (!ch || Math.random() < flick) ch = c.g[r] = glyph();
+        if (k === 0) {
+          ctx.fillStyle = c.bright ? "#E8FFE8" : "#00FF41";
+          ctx.globalAlpha = c.bright ? 0.95 : trailA;
+        } else {
+          ctx.fillStyle = "#00FF41";
+          ctx.globalAlpha = Math.max(0.04, trailA * Math.pow(1 - k / c.len, 1.1));
+        }
+        ctx.fillText(ch, x, CELL * r);
+      }
     }
     ctx.globalAlpha = 1;
     rainRaf = requestAnimationFrame(drawRain);
@@ -170,7 +216,7 @@
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = CELL + "px monospace";
     var rows = Math.ceil(canvas.height / CELL);
-    for (var i = 0; i < drops.length; i++) {
+    for (var i = 0; i < cols.length; i++) {
       if (Math.random() < 0.3) continue;
       var head = Math.floor(Math.random() * (rows + 10));
       var len = 6 + Math.floor(Math.random() * 18);
