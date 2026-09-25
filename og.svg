@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#000"/>
+  <defs>
+    <pattern id="scan" width="1200" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="1200" y2="0" stroke="#003300" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#scan)"/>
+  <text x="603" y="252" text-anchor="middle" font-family="ui-monospace,monospace" font-size="52" font-weight="700" fill="#ff2850">TELEOPLEXY // TIMELINE</text>
+  <text x="597" y="252" text-anchor="middle" font-family="ui-monospace,monospace" font-size="52" font-weight="700" fill="#28c8ff">TELEOPLEXY // TIMELINE</text>
+  <text x="600" y="250" text-anchor="middle" font-family="ui-monospace,monospace" font-size="52" font-weight="700" fill="#00ff41">TELEOPLEXY // TIMELINE</text>
+  <text x="600" y="330" text-anchor="middle" font-family="ui-monospace,monospace" font-size="22" fill="#00b432">"Nothing human makes it out of the near-future."</text>
+  <text x="600" y="370" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" fill="#c8b450">— Nick Land, Meltdown</text>
+</svg>
