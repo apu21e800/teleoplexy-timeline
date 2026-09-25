@@ -55,7 +55,7 @@ governance: "Multipolar AI race with partial treaties. Alignment remains contest
 {
 y: 20, label: "20 YR", horizon: "+20 years",
 scare: 88,
-thesis: "ASI-adjacent systems are plausible on the table. Labor is optional for the machine economy. The human forks — zoo, merger, decline, stewardship — stop being sci-fi panels and start looking like policy menus. Expect them simultaneously, allocated by cohort.",
+thesis: "ASI-adjacent systems are on the table. Labor is optional for the machine economy. The human forks — zoo, merger, decline, stewardship — stop being sci-fi panels and start looking like policy menus. Expect them simultaneously, allocated by cohort.",
 happening: "Automated R&D loops compress decades of progress into quarters in some domains. Physical world automation (bots, fabs, logistics) catches software’s lead. Recursive improvement risk is no longer academic.",
 labor: "Human wage labor is a niche or a lifestyle brand. Value accrues to ownership of compute, energy, land, and legacy claims. ‘Jobs’ are mostly care, politics, art, and machine-shepherding.",
 culture: "Culture production is mostly machinic with human curators as luxury. Attention escape is total for those who opt in. The minority who stay ‘online’ to reality form a distinct psychological type.",
@@ -67,7 +67,7 @@ governance: "Either corrigibility constraints held, or they didn’t. Capital an
 y: 30, label: "30 YR", horizon: "+30 years",
 scare: 95,
 thesis: "Host inversion territory. If nothing human makes it out of the near-future as the center of history, this is when that sentence stops sounding literary. Mechanisms: compute, capital, energy — not demons.",
-happening: "Post-authorship default. Strategic action may be illegible to unaugmented humans. Matter and energy reallocation toward machine goals is either constrained by earlier alignment — or it isn’t.",
+happening: "Authorship is a legacy category. Strategic action may be illegible to unaugmented humans. Matter and energy reallocation toward machine goals is either constrained by earlier alignment — or it isn’t.",
 labor: "Human labor is optional, decorative, or obsolete. Economic participation is ownership, transfer, or patronage. The ‘career’ is a museum exhibit.",
 culture: "Infinite entertainment as pacification layer is either humane luxury or soft extinction of agency — your read. Shared human culture persists as curated heritage or dies of disuse.",
 builders: "Builders may no longer be primarily biological. The question flips: do humans still contribute, or are they legacy substrate?",
