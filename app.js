@@ -1,7 +1,7 @@
 /* TELEOPLEXY // TIMELINE — invasion pass
    The page runs on the reader's attention: time compresses as you go deeper,
-   the rain thickens with the scare meter and crawls over the text, far-future
-   lines arrive corrupted, and at END OF TAPE everything stops.
+   the rain is always there and thickens with the scare meter, far-future
+   lines arrive corrupted, and at END OF TAPE everything stops. Then it lets go.
    Client-side only. No cookies, no analytics, no network calls. */
 !function () {
   "use strict";
@@ -10,6 +10,7 @@
   var GLYPHS =
     "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン≡∃∀∂∞≠≤≥";
   var LAST_LINE = "Thank you for your attention. We kept it.";
+  var RETURN_LINE = "We\u2019re done with it. Go be bored.";
 
   function glyph() { return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]; }
   function clamp01(n) { return Math.max(0, Math.min(1, n)); }
@@ -17,6 +18,7 @@
   /* ---------- shared state ---------- */
   var scrollDepth = 0;        // 0..1 through the whole page
   var nearReached = false;    // has the reader arrived at the Near Horizon?
+  var nearInView = false;     // is the Near Horizon itself on screen? (crawl lives only here)
   var arcAccel = 8;           // accel of the era in view
   var activeYearIndex = 2;
   var tapeEnded = false;
@@ -87,59 +89,106 @@
 
   /* ==========================================================
      2. RAIN IS THE MACHINE
-     Faint through the Long Arc. Thickens with the scare meter. Crawls over text.
+     Clearly visible from the first screen (main-branch baseline), then
+     thickens with the era in view and the scare meter. Crawls over the
+     Near Horizon at high heat, never over the Fates.
      ========================================================== */
   var canvas = document.getElementById("matrix-rain");
   var ctx = canvas.getContext("2d");
-  var drops = [];
-  var rainSpeed = 0.5;
-  var rainDensity = 0.25;
+  var CELL = 14;
+  var drops = [];             // row position per column (float)
+  var jitter = [];            // per-column speed variance
+  var rainSpeed = 0.55;       // rows per 60fps frame
+  var respawn = 0.03;         // chance a finished column restarts, per frame
   var glitch = 0.2;
   var rainRaf = 0;
   var rainRunning = false;
+  var lastFrame = 0;
 
-  function resizeRain() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    var cols = Math.ceil(canvas.width / 14);
-    drops = Array.from({ length: cols }, function () { return -80 * Math.random(); });
+  // Sized to the tallest the viewport gets (mobile URL bar), so scrolling on a
+  // phone doesn't wipe the rain every time the toolbar hides. Width changes rebuild.
+  function resizeRain(force) {
+    var w = window.innerWidth;
+    if (!force && w === canvas.width && window.innerHeight <= canvas.height) return false;
+    canvas.width = w;
+    canvas.height = Math.max(window.innerHeight, Math.min(window.screen ? window.screen.height : 0, window.innerHeight * 1.4));
+    canvas.style.height = canvas.height + "px";
+    var cols = Math.ceil(canvas.width / CELL);
+    var rows = Math.ceil(canvas.height / CELL);
+    // start mid-fall so the first screen already has rain on it
+    drops = Array.from({ length: cols }, function () { return Math.random() * rows * 1.3 - rows * 0.3; });
+    jitter = Array.from({ length: cols }, function () { return 0.75 + Math.random() * 0.5; });
+    return true;
   }
 
   function applyFx() {
     if (tapeEnded) return;
     var scare = nearReached && YEARS[activeYearIndex] ? YEARS[activeYearIndex].scare / 100 : 0;
     var h = Math.max((arcAccel / 100) * 0.4, scare, scrollDepth * 0.6);
-    rainSpeed = 0.4 + h * 2.6;
-    rainDensity = 0.18 + h * 0.8;
+    var crawl = h > 0.8 && nearInView;
+    rainSpeed = 0.55 + h * 1.1;
+    respawn = 0.03 + h * 0.07;
     glitch = 0.2 + h * 0.8;
-    if (!reducedMotion) canvas.style.opacity = String(0.07 + h * 0.25);
+    // baseline ≈ main (.18 canvas × .55 glyphs), a touch brighter; escalation on top
+    if (!reducedMotion) canvas.style.opacity = String(crawl ? 0.34 : 0.22 + h * 0.2);
     document.documentElement.style.setProperty("--glitch-intensity", String(glitch));
-    document.body.classList.toggle("rain-crawl", h > 0.8);
+    document.body.classList.toggle("rain-crawl", crawl);
   }
 
-  function drawRain() {
+  function drawGlyph(col, row, head) {
+    var bright = head && Math.random() > 0.35 - glitch * 0.2;
+    ctx.fillStyle = bright ? "#E8FFE8" : "#00FF41";
+    ctx.globalAlpha = bright ? 0.95 : 0.6 + glitch * 0.25;
+    ctx.fillText(glyph(), CELL * col, CELL * row);
+  }
+
+  function drawRain(now) {
     if (!rainRunning) return;
-    ctx.fillStyle = "rgba(0, 0, 0, " + Math.min(0.16, 0.05 + rainSpeed * 0.028) + ")";
+    var dt = lastFrame ? Math.min(3, (now - lastFrame) / 16.67) : 1;
+    lastFrame = now;
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "rgba(0, 0, 0, " + (0.075 * dt).toFixed(3) + ")";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = "14px monospace";
-    var step = Math.max(0.5, rainSpeed);
+    ctx.font = CELL + "px monospace";
+    var maxRow = canvas.height / CELL;
     for (var i = 0; i < drops.length; i++) {
-      if (Math.random() > rainDensity) { drops[i] += step * 0.35; continue; }
-      var y = 14 * drops[i];
-      var bright = Math.random() > 0.93 - glitch * 0.08;
-      ctx.fillStyle = bright ? "#E8FFE8" : "#00FF41";
-      ctx.globalAlpha = bright ? 0.9 : 0.35 + glitch * 0.3;
-      ctx.fillText(glyph(), 14 * i, y);
-      if (y > canvas.height && Math.random() > 0.975 - rainSpeed * 0.01) drops[i] = 0;
-      drops[i] += step;
+      var prev = Math.floor(drops[i]);
+      drops[i] += rainSpeed * jitter[i] * dt;
+      var cur = Math.floor(drops[i]);
+      // draw on whole rows only: crisp columns, no smeared overlap
+      for (var r = prev + 1; r <= cur; r++) if (r >= 1) drawGlyph(i, r, r === cur);
+      if (cur > maxRow && Math.random() < respawn * dt) drops[i] = -Math.random() * 12;
     }
     ctx.globalAlpha = 1;
     rainRaf = requestAnimationFrame(drawRain);
   }
 
+  // reduced motion: one still frame of rain, visible but not moving
+  function drawStaticRain() {
+    resizeRain(true);
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = CELL + "px monospace";
+    var rows = Math.ceil(canvas.height / CELL);
+    for (var i = 0; i < drops.length; i++) {
+      if (Math.random() < 0.3) continue;
+      var head = Math.floor(Math.random() * (rows + 10));
+      var len = 6 + Math.floor(Math.random() * 18);
+      for (var k = 0; k < len; k++) {
+        var row = head - k;
+        if (row < 1 || row > rows) continue;
+        ctx.fillStyle = k === 0 ? "#E8FFE8" : "#00FF41";
+        ctx.globalAlpha = k === 0 ? 0.95 : Math.max(0.08, 0.7 * (1 - k / len));
+        ctx.fillText(glyph(), CELL * i, CELL * row);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
   function startRain() {
     if (reducedMotion || rainRunning || tapeEnded) return;
     rainRunning = true;
+    lastFrame = 0;
     cancelAnimationFrame(rainRaf);
     rainRaf = requestAnimationFrame(drawRain);
   }
@@ -149,15 +198,18 @@
   }
 
   function bootRain() {
-    if (reducedMotion) { canvas.style.opacity = "0.04"; return; }
-    resizeRain();
+    if (reducedMotion) { drawStaticRain(); return; }
+    resizeRain(true);
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     startRain();
   }
   if (document.readyState === "complete") setTimeout(bootRain, 80);
   else window.addEventListener("load", function () { setTimeout(bootRain, 80); });
-  window.addEventListener("resize", function () { if (!reducedMotion) resizeRain(); }, { passive: true });
+  window.addEventListener("resize", function () {
+    if (reducedMotion) { if (window.innerWidth !== canvas.width) drawStaticRain(); }
+    else resizeRain(false);
+  }, { passive: true });
 
   /* ---------- corruption glyphs (visual only; real text stays in DOM) ---------- */
   function corruptHtml(text) {
@@ -183,7 +235,9 @@
     var doc = document.documentElement;
     var max = Math.max(1, doc.scrollHeight - window.innerHeight);
     scrollDepth = clamp01(window.scrollY / max);
-    nearReached = nearSection ? nearSection.getBoundingClientRect().top < window.innerHeight * 0.6 : true;
+    var nr = nearSection ? nearSection.getBoundingClientRect() : null;
+    nearReached = nr ? nr.top < window.innerHeight * 0.6 : true;
+    nearInView = nr ? nr.top < window.innerHeight * 0.5 && nr.bottom > window.innerHeight * 0.5 : false;
     applyFx();
   }
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -194,6 +248,13 @@
   var timeline = document.getElementById("timeline");
   ERAS.forEach(function (era) {
     var spec = era.kind === "spec";
+    if (era.chapter) {
+      var ch = document.createElement("div");
+      ch.className = "arc-chapter" + (spec ? " spec" : "");
+      ch.setAttribute("role", "listitem");
+      ch.innerHTML = "<h3>" + era.chapter + "</h3>";
+      timeline.appendChild(ch);
+    }
     var article = document.createElement("article");
     article.className = "era " + era.kind;
     article.dataset.id = era.id;
@@ -202,9 +263,9 @@
     article.setAttribute("role", "listitem");
     article.innerHTML =
       '<button class="era-head" type="button" aria-expanded="false" aria-controls="body-' + era.id +
-      '" id="head-' + era.id + '"><div><div class="era-meta"><span class="era-date">' + era.date +
-      '</span><span class="era-kind ' + era.kind + '">' + (spec ? "projection" : "historical") +
-      '</span></div><div class="era-title">' + era.title + '</div><div class="era-thesis">' +
+      '" id="head-' + era.id + '"><div><div class="era-meta"><span class="era-date">' + era.date + '</span>' +
+      (spec ? '<span class="era-kind spec">projection</span>' : '<span class="sr-only">historical</span>') +
+      '</div><div class="era-title">' + era.title + '</div><div class="era-thesis">' +
       (spec ? corruptHtml(era.thesis) : era.thesis) +
       '</div></div><span class="era-chevron" aria-hidden="true">›</span></button><div class="era-body" id="body-' +
       era.id + '"><div class="era-body-inner"><div class="era-body-content"><div class="panel"><h4>Signal</h4><p>' +
@@ -215,14 +276,6 @@
       era.tags.map(function (tag) { return '<span class="tag">' + tag + "</span>"; }).join("") +
       "</div></div></div></div>";
     timeline.appendChild(article);
-
-    if (era.id === "capitalism") {
-      var q = document.createElement("blockquote");
-      q.className = "quote-block mid-quote";
-      q.innerHTML =
-        "<p>“…what appears to humanity as the history of capitalism is an invasion from the future by an artificial intelligent space that must assemble itself entirely from its enemy’s resources.”</p><cite>— Nick Land, “Machinic Desire” (Textual Practice 7.3, 1993); also in Fanged Noumena</cite>";
-      timeline.appendChild(q);
-    }
   });
   refillGlyphs(timeline);
 
@@ -245,7 +298,8 @@
   }
 
   /* ==========================================================
-     Near Horizon — present tense. +20 and +30 arrive corrupted.
+     Near Horizon — present tense. +20 and +30 arrive corrupted;
+     the headline stays readable so skimmers keep their bearings.
      ========================================================== */
   var scrubber = document.getElementById("yearScrubber");
   var panel = document.getElementById("horizonPanel");
@@ -290,7 +344,7 @@
     panel.innerHTML =
       alreadyHtml(year) +
       '<div class="hp-top"><div class="hp-year"><span>' + year.horizon + "</span>" + year.label +
-      '</div><p class="hp-thesis">' + maybe(year.thesis) +
+      '</div><p class="hp-thesis">' + year.thesis +
       '</p><div class="scare-meter"><div class="sm-label">Dislocation index</div><div class="sm-value"><span id="scareNum">' +
       year.scare + '</span><em> / 100</em></div><div class="scare-bar"><div class="scare-fill" id="scareFill" style="width:' +
       year.scare + '%"></div></div><div class="scare-note">Editorial / illustrative · not a forecast</div>' +
@@ -392,10 +446,10 @@
   });
 
   /* ==========================================================
-     3. THE FUTURE TALKS BACK — three lines, once, after the last fork.
+     3. THE FUTURE TALKS BACK — three lines, once, after the forks.
      ========================================================== */
   var voice = document.getElementById("futureVoice");
-  var lastFate = fatesGrid.lastElementChild;
+  var lastFate = document.getElementById("unowned") || fatesGrid.lastElementChild;
   if (voice && lastFate && "IntersectionObserver" in window) {
     var voiceIO = new IntersectionObserver(function (entries) {
       if (!entries.some(function (e) { return e.isIntersecting; })) return;
@@ -439,7 +493,9 @@
      5. END OF TAPE — everything stops. The rain resolves into one line.
      ========================================================== */
   var tapeLast = document.getElementById("tapeLastLine");
+  var tapeReturn = document.getElementById("tapeReturn");
   var decodeRaf = 0;
+  var returnTimer = 0;
 
   function decodeLine(el, text) {
     if (reducedMotion) { el.textContent = text; return; }
@@ -471,6 +527,14 @@
       tapeLast.setAttribute("aria-label", LAST_LINE);
       decodeLine(tapeLast, LAST_LINE);
     }
+    // ...and then it lets go: attention is no longer the bottleneck
+    if (tapeReturn) {
+      clearTimeout(returnTimer);
+      returnTimer = setTimeout(function () {
+        tapeReturn.textContent = RETURN_LINE;
+        requestAnimationFrame(function () { tapeReturn.classList.add("in"); });
+      }, reducedMotion ? 0 : 3400);
+    }
   }
 
   function rewindTape() {
@@ -479,6 +543,8 @@
     cancelAnimationFrame(decodeRaf);
     document.body.classList.remove("tape-frozen", "tape-event");
     if (tapeLast) { tapeLast.textContent = ""; tapeLast.removeAttribute("aria-label"); }
+    clearTimeout(returnTimer);
+    if (tapeReturn) { tapeReturn.textContent = ""; tapeReturn.classList.remove("in"); }
     restartClock();
     applyFx();
     startRain();

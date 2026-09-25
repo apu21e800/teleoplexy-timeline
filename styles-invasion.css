@@ -67,6 +67,7 @@
   .topbar-nav { flex-wrap: nowrap; }
 }
 @media (max-width: 380px) {
+  .hero-kicker { font-size: 11px; letter-spacing: .12em; }
   .topbar { column-gap: 6px; }
   .topbar-nav a { padding: 6px 4px; letter-spacing: .02em; }
 }
@@ -76,9 +77,188 @@
   top: var(--topbar-h, 52px);
 }
 
-/* ---- Rain climbs over the text once the meter is high ---- */
+/* ---- Rain: visible from the first screen ----
+   Text that sits directly on the rain (no card behind it) gets a soft
+   black halo so it stays legible at any heat. */
+.hero-sub,
+.hero-meta,
+.section-lead,
+.section-title,
+.quote-block p,
+.quote-block cite,
+.arc-legend,
+.arc-chapter h3,
+.fv-line,
+.footer p:not(.tape-last),
+.footer-brand,
+.tape-return {
+  text-shadow: 0 0 2px #000, 0 0 10px #000, 0 0 18px rgba(0, 0, 0, .9);
+}
+.quote-block {
+  background: linear-gradient(90deg, rgba(0, 20, 6, .82), rgba(0, 0, 0, .55) 70%, transparent);
+}
+
+/* Rain climbs over the Near Horizon once the meter is high. Screen blend:
+   the canvas's black drops out, only glyphs land on the text, so nothing
+   gets dimmed. JS keeps the crawl off the Fates entirely. */
 body.rain-crawl #matrix-rain {
   z-index: 3;
+  mix-blend-mode: screen;
+}
+
+/* ---- Long Arc: one rail, chapter marks, quieter chrome ---- */
+.era-list {
+  position: relative;
+  padding-left: 22px;
+  gap: 10px;
+}
+.era-list::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  bottom: 24px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--matrix-deep), var(--line-bright) 72%, rgba(240, 192, 64, .55));
+}
+.era {
+  position: relative;
+  overflow: visible;
+}
+.era::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 21px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--matrix-deep);
+  transition: background .25s, box-shadow .25s;
+}
+.era.open::before,
+.era:hover::before {
+  background: var(--matrix);
+  box-shadow: 0 0 8px var(--matrix-glow);
+}
+.era.spec::before { border-color: rgba(240, 192, 64, .6); }
+.era.spec.open::before,
+.era.spec:hover::before {
+  background: var(--amber);
+  box-shadow: 0 0 8px rgba(240, 192, 64, .45);
+}
+.era-head { padding: 15px 16px 16px 18px; }
+.era-meta { margin-bottom: 4px; }
+.era-date {
+  color: var(--matrix-dim);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.era-title {
+  font-size: 1.08rem;
+  letter-spacing: -.01em;
+  margin-bottom: 3px;
+}
+.era-thesis { color: var(--body-dim); }
+.era-body-content { padding: 0 16px 18px 18px; }
+.arc-chapter {
+  position: relative;
+  margin: 22px 0 2px;
+}
+.arc-chapter:first-child { margin-top: 0; }
+.arc-chapter::before {
+  content: "";
+  position: absolute;
+  left: -21px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-top: -5px;
+  transform: rotate(45deg);
+  background: var(--matrix);
+  box-shadow: 0 0 10px var(--matrix-glow);
+}
+.arc-chapter.spec::before {
+  background: var(--amber);
+  box-shadow: 0 0 10px rgba(240, 192, 64, .45);
+}
+.arc-chapter h3 {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--matrix);
+}
+.arc-chapter.spec h3 { color: var(--amber); }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- Side effect: the unexpected upside ---- */
+.side-effect {
+  margin-top: 18px;
+  padding: 22px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--title);
+  border-radius: 14px;
+}
+.se-rank {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--body-dim);
+  margin-bottom: 8px;
+}
+.se-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--title);
+  letter-spacing: -.01em;
+  margin-bottom: 10px;
+}
+.se-body {
+  font-size: .95rem;
+  color: var(--body);
+  line-height: 1.6;
+  max-width: 46em;
+}
+.se-body strong {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--title);
+  letter-spacing: .02em;
+}
+.se-signals {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: .82rem;
+  color: var(--body-dim);
+  line-height: 1.5;
+  max-width: 52em;
+}
+.se-signals strong {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--matrix);
 }
 
 /* ---- Corruption: visual only. Real text stays in the DOM ---- */
@@ -191,7 +371,8 @@ body.tape-event .pulse-dot {
   opacity: .3;
   box-shadow: none;
 }
-.tape-last {
+/* .footer prefix: beats styles-near's `.footer p` (colour, size, margin) */
+.footer .tape-last {
   font-family: var(--mono);
   font-size: clamp(1rem, 4vw, 1.3rem);
   letter-spacing: .08em;
@@ -202,9 +383,39 @@ body.tape-event .pulse-dot {
   min-height: 1.4em;
   margin: 0 0 22px;
 }
-.tape-last:empty {
+.tape-last,
+.tape-return,
+.fv-line,
+.se-title,
+.section-title { text-wrap: balance; }
+.accel-head span:last-child { text-align: right; }
+.footer .tape-last:empty {
   margin: 0;
   min-height: 0;
+}
+.footer .tape-return {
+  font-family: var(--mono);
+  font-size: clamp(.9rem, 3.4vw, 1.05rem);
+  letter-spacing: .04em;
+  line-height: 1.5;
+  color: var(--cyan);
+  margin: -8px 0 22px;
+  opacity: 0;
+  transition: opacity 1.6s var(--ease);
+}
+.tape-return.in { opacity: 1; }
+.footer .tape-return:empty {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .era-list { padding-left: 18px; }
+  .era-list::before { left: 4px; }
+  .era::before { left: -17px; }
+  .arc-chapter::before { left: -18px; }
+  .era-head { padding: 14px 12px 14px 14px; }
+  .era-body-content { padding: 0 12px 16px 14px; }
+  .side-effect { padding: 20px 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -219,4 +430,7 @@ body.tape-event .pulse-dot {
   .corrupt-hint { display: none; }
   .clock-value.clock-blur { filter: none; }
   .fv-line { opacity: 1; transform: none; }
+  .tape-return { opacity: 1; }
+  /* still frame of rain, visible (styles.css forced .04) */
+  html body #matrix-rain { opacity: .2 !important; }
 }
