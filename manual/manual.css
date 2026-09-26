@@ -1,0 +1,89 @@
+/* ==========================================================
+   FIELD MANUAL
+   Same instrument as the timeline, pointed at the reader.
+   Loaded after styles.css + styles-near.css + styles-invasion.css.
+   Overrides only.
+   ========================================================== */
+
+/* calm rain: present, never loud */
+#matrix-rain { opacity: .1; }
+
+/* force meter: the scare meter, turned green */
+.scare-meter.force .sm-value { color: var(--matrix); }
+.scare-meter.force .scare-fill {
+  background: linear-gradient(90deg, var(--matrix-deep), var(--matrix));
+  box-shadow: 0 0 12px var(--matrix-glow);
+}
+.scare-meter.force .sparkline i { background: var(--line-bright); }
+.scare-meter.force .sparkline i.on { background: var(--matrix); }
+
+/* the five holds: fate cards, one accent each */
+.fate-card.hold-body { border-top: 2px solid var(--matrix); }
+.fate-card.hold-hands { border-top: 2px solid var(--amber); }
+.fate-card.hold-keys { border-top: 2px solid var(--cyan); }
+.fate-card.hold-hearth { border-top: 2px solid #7de0c8; }
+.fate-card.hold-sabbath { border-top: 2px solid #F3EAD6; }
+.fate-card .fate-title .ico { color: var(--matrix); margin-right: 8px; font-weight: 400; }
+.fate-card.hold-hands .fate-title .ico { color: var(--amber); }
+.fate-card.hold-keys .fate-title .ico { color: var(--cyan); }
+.fate-card.hold-hearth .fate-title .ico { color: #7de0c8; }
+.fate-card.hold-sabbath .fate-title .ico { color: #F3EAD6; }
+.hp-card.teal h4 { color: #7de0c8; }
+.hp-card.warm h4 { color: #F3EAD6; }
+
+/* tally strokes, groups of five */
+.marks { display: flex; flex-wrap: wrap; gap: 10px; min-height: 20px; }
+.g { position: relative; display: inline-flex; gap: 4px; height: 20px; padding: 0 2px; }
+.g i { display: block; width: 2px; height: 20px; background: var(--title); }
+.g.five::after {
+  content: "";
+  position: absolute;
+  left: -3px; right: -3px; top: 9px;
+  height: 2px;
+  background: var(--matrix);
+  box-shadow: 0 0 6px var(--matrix-glow);
+  transform: rotate(-28deg);
+}
+
+/* burn / log buttons: the year-btn family */
+.hold-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.hold-btn {
+  flex: 1;
+  min-width: 118px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  color: var(--body-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .2s var(--ease-spring), background .2s, border-color .2s, color .2s, box-shadow .25s;
+}
+.hold-btn:hover { border-color: var(--matrix-deep); color: var(--matrix); transform: translateY(-1px); }
+.hold-btn:active { transform: scale(.96); }
+.hold-btn.burning {
+  background: var(--matrix-soft);
+  border-color: var(--matrix);
+  color: var(--matrix);
+  box-shadow: 0 0 24px var(--matrix-glow), inset 0 0 20px rgba(0, 255, 65, .06);
+}
+.hold-btn.ghost { flex: 0 0 auto; min-width: 0; background: transparent; font-weight: 500; }
+.ledger-tools { display: flex; gap: 8px; margin-top: 16px; }
+
+/* the wager: Side B's voice */
+.future-voice.wager { border-left-color: #F3EAD6; }
+.future-voice.wager .fv-line {
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  color: #F3EAD6;
+  letter-spacing: 0;
+  font-size: clamp(1.05rem, 3.8vw, 1.3rem);
+}
+
+@media (max-width: 640px) {
+  .hold-btn { min-width: 0; }
+}
