@@ -2,6 +2,7 @@
    The page runs on the reader's attention: time compresses as you go deeper,
    the rain is always there and thickens with the scare meter, far-future
    lines arrive corrupted, and at END OF TAPE everything stops. Then it lets go.
+   Past the silence there is a Side B, and time is given back.
    Client-side only. No cookies, no analytics, no network calls. */
 !function () {
   "use strict";
@@ -22,6 +23,7 @@
   var arcAccel = 8;           // accel of the era in view
   var activeYearIndex = 2;
   var tapeEnded = false;
+  var humanTime = false;      // set once Side B is found. Not revoked.
 
   /* ---------- topbar height → sticky scrubber offset ---------- */
   var topbar = document.querySelector(".topbar");
@@ -46,6 +48,7 @@
   }
 
   function clockRate() {
+    if (humanTime) return 1;
     var h = heat();
     if (h < 0.12) return 1;
     // exponential: ~1x → ~3x mid-page → ~600x at the far edge
@@ -62,7 +65,7 @@
     var now = Date.now();
     var dt = now - lastTick;
     lastTick = now;
-    if (tapeEnded) return;
+    if (tapeEnded && !humanTime) return;
     var rate = clockRate();
     virtualMs += dt * rate;          // integrate: the future never gives time back
     liveClock.textContent = fmt(virtualMs);
@@ -486,8 +489,9 @@
     card.innerHTML =
       '<div class="fate-rank">' + fate.rank + '</div><h3 class="fate-title">' + fate.title +
       '</h3><div class="fate-plaus"><span class="plaus-pips ' + fate.plausClass + '">' + pips +
-      "</span><span>" + fate.note + '</span></div><p class="fate-mech">' + fate.mech +
-      '</p><div class="fate-signals"><strong>Watch signals</strong>' + fate.signals + "</div>";
+      "</span><span>" + fate.note + '</span></div><p class="fate-mech">' + fate.mech + "</p>" +
+      (fate.beta ? '<div class="fate-signals fate-beta"><strong>Already in beta</strong>' + fate.beta + "</div>" : "") +
+      '<div class="fate-signals"><strong>Watch signals</strong>' + fate.signals + "</div>";
     fatesGrid.appendChild(card);
   });
 
@@ -562,7 +566,7 @@
     if (tapeEnded) return;
     tapeEnded = true;
     stopRain();
-    stopClock();
+    if (!humanTime) stopClock();
     document.body.classList.remove("rain-crawl");
     document.body.classList.add("tape-frozen", "tape-event");
     if (!reducedMotion) {
@@ -611,6 +615,45 @@
         }
       });
     }, { threshold: 1 }).observe(tapeZone);
+  }
+
+  /* ==========================================================
+     6. SIDE B — past the silence. The clock snaps back to the real
+     present at 1× and stays there. Rain and scanlines fade out.
+     Once found, never revoked.
+     ========================================================== */
+  var sideB = document.getElementById("sideB");
+
+  function redeemTime() {
+    if (humanTime) return;
+    humanTime = true;
+    virtualMs = Date.now();          // the future gave time back
+    lastTick = Date.now();
+    liveClock.classList.remove("clock-stopped", "clock-blur");
+    clearInterval(clockTimer);
+    clockTimer = setInterval(tickClock, 1000);
+    tickClock();
+    document.body.classList.add("human-time");
+  }
+
+  if (sideB) {
+    var sideLines = sideB.querySelectorAll(".fs-line");
+    var playSideB = function () {
+      redeemTime();
+      sideLines.forEach(function (line, i) {
+        setTimeout(function () { line.classList.add("in"); }, reducedMotion ? 0 : 700 + i * 1700);
+      });
+    };
+    if ("IntersectionObserver" in window) {
+      var sideIO = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (e) { return e.isIntersecting; })) return;
+        sideIO.disconnect();
+        playSideB();
+      }, { threshold: 0.25 });
+      sideIO.observe(sideB);
+    } else {
+      playSideB();
+    }
   }
 
   onScroll();
