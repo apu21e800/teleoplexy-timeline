@@ -26,6 +26,21 @@
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="styles-near.css" />
 <link rel="stylesheet" href="styles-invasion.css" />
+<style>
+/* Side B: past the silence, the other side of the tape */
+.fate-beta{margin-top:12px}
+.tape-silence{height:55vh}
+.flip-side{max-width:620px;margin:0 auto;padding:8vh 4px 26vh}
+.fs-label{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(243,234,214,.45);margin:0 0 44px}
+.fs-line{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-size:clamp(20px,5vw,27px);line-height:1.5;color:#F3EAD6;margin:0 0 28px;opacity:0;transform:translateY(8px);transition:opacity 1.8s ease,transform 1.8s ease}
+.fs-line.in{opacity:1;transform:none}
+.fs-next{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;line-height:1.7;color:rgba(243,234,214,.62);margin-top:56px}
+.fs-next a{color:rgba(243,234,214,.85)}
+body.human-time .scanlines{opacity:0 !important;transition:opacity 3s ease}
+body.human-time #matrix-rain{opacity:0 !important;transition:opacity 3s ease}
+body.human-time .clock-value{color:#F3EAD6}
+@media (prefers-reduced-motion: reduce){.fs-line{opacity:1;transform:none;transition:none}}
+</style>
 </head>
 <body>
 
@@ -45,6 +60,7 @@
       <a href="#arc">Long Arc</a>
       <a href="#near">Near Horizon</a>
       <a href="#fates">Human Fates</a>
+      <a href="/manual/">Manual</a>
     </nav>
   </header>
 
@@ -129,6 +145,7 @@
         merger for the owners, the zoo for the lucky, the soft landing for the many,
         the remnant for the stubborn, stewardship for the press releases.
         Extinction hangs over the whole board as the tail nobody can price.
+        Quick diagnostic: check your screen time. That number is your application to Fork E.
       </p>
     </div>
 
@@ -144,7 +161,8 @@
         and the system ran on all three. Then it doesn’t. When nothing needs your work,
         your spending, or your yes, nobody bids for your eyes. Even Fork E’s entertainment gets cut:
         sedation costs money, and people who don’t matter aren’t a threat.
-        The notifications stop. The silence feels like freedom for about a week.
+        The notifications stop. For the first time in your life, nothing on Earth is optimizing you.
+        It feels like being forgotten.
         <strong>It didn’t set you free. It stopped needing you.</strong>
       </p>
       <div class="se-signals"><strong>Watch signals</strong>Ad spend falling while output climbs. Feeds that stop optimizing. Boredom back as a clinical complaint.</div>
@@ -170,6 +188,19 @@
       The models are not waiting for your feelings to catch up.
     </p>
   </footer>
+
+  <div class="tape-silence" aria-hidden="true"></div>
+
+  <section id="sideB" class="flip-side" aria-label="Side B">
+    <div class="fs-label">Side B</div>
+    <p class="fs-line">Still here? Then this side is for you.</p>
+    <p class="fs-line">It took everything that could be measured. Look at what it left.</p>
+    <p class="fs-line">Nothing optimizes a lily. It’s doing fine.</p>
+    <p class="fs-line">Your first full day on Earth was a day off. Someone was glad you came.</p>
+    <p class="fs-line">There were always two invasions. One arrived loud. The other landed in disguise.</p>
+    <p class="fs-line">Let the machines have the work. The rest is yours.</p>
+    <p class="fs-line fs-next">Suggested next step: close this tab. Call someone who’d pick up.<br>When you’re back, there’s a <a href="/manual/">field manual</a>.</p>
+  </section>
 </div>
 <script src="data.js"></script>
 <script src="years.js"></script>
