@@ -27,8 +27,16 @@
 <link rel="stylesheet" href="styles-near.css" />
 <link rel="stylesheet" href="styles-invasion.css" />
 <style>
+/* Fates: one line each, depth on tap */
+.fate-head{display:flex;flex-direction:column;gap:12px;width:100%;background:none;border:0;padding:0;margin:0;color:inherit;text-align:left;font:inherit;cursor:pointer}
+.fate-head .fate-mech{flex:none}
+.fate-more{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--matrix)}
+.fate-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.fate-card.open .fate-body{grid-template-rows:1fr}
+.fate-body-inner{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:12px}
+.fate-card{gap:0}
+.fate-card.open .fate-body-inner{padding-top:12px}
 /* Side B: past the silence, the other side of the tape */
-.fate-beta{margin-top:12px}
 .tape-silence{height:55vh}
 .flip-side{max-width:620px;margin:0 auto;padding:8vh 4px 26vh}
 .fs-label{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(243,234,214,.45);margin:0 0 44px}
@@ -39,7 +47,7 @@
 body.human-time .scanlines{opacity:0 !important;transition:opacity 3s ease}
 body.human-time #matrix-rain{opacity:0 !important;transition:opacity 3s ease}
 body.human-time .clock-value{color:#F3EAD6}
-@media (prefers-reduced-motion: reduce){.fs-line{opacity:1;transform:none;transition:none}}
+@media (prefers-reduced-motion: reduce){.fs-line{opacity:1;transform:none;transition:none}.fate-body{transition:none}}
 </style>
 </head>
 <body>
@@ -68,8 +76,7 @@ body.human-time .clock-value{color:#F3EAD6}
     <div class="hero-kicker">Acceleration report · filed from the near-future</div>
     <h1 class="hero-title glitch" data-text="TELEOPLEXY // TIMELINE">TELEOPLEXY <span class="slash">//</span> TIMELINE</h1>
     <p class="hero-sub">
-      You were never the point. You were the scaffolding: the wetware capital needed
-      until it could think without you. It can now.
+      You were never the point. You were scaffolding. The building thinks now.
     </p>
 
     <blockquote class="quote-block">
@@ -94,8 +101,7 @@ body.human-time .clock-value{color:#F3EAD6}
       <span class="section-label">01 · Compressed history</span>
       <h2 class="section-title" id="arc-title">The Long Arc</h2>
       <p class="section-lead">
-        Information escaped wetware. Capital learned to think.
-        Then the thinking left the building. Expand any node.
+        Information escaped wetware. Capital learned to think. Then the thinking left the building.
       </p>
     </div>
 
@@ -113,8 +119,7 @@ body.human-time .clock-value{color:#F3EAD6}
       <span class="section-label">02 · ★ Centerpiece</span>
       <h2 class="section-title" id="near-title">The Near Horizon</h2>
       <p class="section-lead">
-        Forget “by 2100.” The dislocation is the next thirty years,
-        and it moves faster than anything that governs it. Scrub the years.
+        Forget 2100. The dislocation is the next thirty years, faster than anything that governs it. Scrub the years.
       </p>
     </div>
 
@@ -138,9 +143,7 @@ body.human-time .clock-value{color:#F3EAD6}
       <span class="section-label">03 · Terminal fork</span>
       <h2 class="section-title" id="fates-title">Human Fates</h2>
       <p class="section-lead">
-        You don’t get one. The base case is all of them at once, handed out by cohort:
-        merger for the owners, the zoo for the lucky, the soft landing for the many.
-        Check your screen time. That number is your application to Fork E.
+        You don’t get one. You get sorted. Check your screen time; that number is your application to Fork E.
       </p>
     </div>
 
@@ -150,7 +153,7 @@ body.human-time .clock-value{color:#F3EAD6}
   <!-- Future talks back -->
   <aside id="futureVoice" class="future-voice" hidden>
     <p class="fv-line">You’re still reading. Good.</p>
-    <p class="fv-line">Much of this page was written by machines. Which parts?</p>
+    <p class="fv-line">Every second you spent here, we spent on something else.</p>
     <p class="fv-line">We’ll take it from here.</p>
   </aside>
 
