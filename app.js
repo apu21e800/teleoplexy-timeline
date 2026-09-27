@@ -487,12 +487,24 @@
     card.className = "fate-card " + fate.cls;
     var pips = [1, 2, 3, 4, 5].map(function (n) { return '<i class="' + (n <= fate.plaus ? "on" : "") + '"></i>'; }).join("");
     card.innerHTML =
+      '<button class="fate-head" type="button" aria-expanded="false">' +
       '<div class="fate-rank">' + fate.rank + '</div><h3 class="fate-title">' + fate.title +
       '</h3><div class="fate-plaus"><span class="plaus-pips ' + fate.plausClass + '">' + pips +
       "</span><span>" + fate.note + '</span></div><p class="fate-mech">' + fate.mech + "</p>" +
+      '<span class="fate-more" aria-hidden="true">more ›</span></button>' +
+      '<div class="fate-body"><div class="fate-body-inner">' +
       (fate.beta ? '<div class="fate-signals fate-beta"><strong>Already in beta</strong>' + fate.beta + "</div>" : "") +
-      '<div class="fate-signals"><strong>Watch signals</strong>' + fate.signals + "</div>";
+      '<div class="fate-signals"><strong>Watch signals</strong>' + fate.signals + "</div></div></div>";
     fatesGrid.appendChild(card);
+  });
+  fatesGrid.addEventListener("click", function (ev) {
+    var head = ev.target.closest(".fate-head");
+    if (!head) return;
+    var card = head.closest(".fate-card");
+    var open = card.classList.toggle("open");
+    head.setAttribute("aria-expanded", open ? "true" : "false");
+    var more = head.querySelector(".fate-more");
+    if (more) more.textContent = open ? "less ‹" : "more ›";
   });
 
   /* ==========================================================
